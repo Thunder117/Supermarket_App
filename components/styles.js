@@ -20,6 +20,17 @@ const styles = StyleSheet.create({
     itemText: {
         fontSize:20, 
         fontWeight:'500'
+    },
+    itemRightSwipe:{
+        width:'30%', 
+        alignItems:'center', 
+        justifyContent:'center', 
+        height:'100%', 
+        marginLeft:'-10%', 
+        borderTopRightRadius:20, 
+        borderBottomRightRadius:20, 
+        marginRight:'5%', 
+        backgroundColor:'#f93737'
     }
 });
 

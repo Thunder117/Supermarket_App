@@ -1,5 +1,5 @@
 import { Swipeable } from "react-native-gesture-handler";
-import { Text, Pressable, View } from "react-native";
+import { Text, Pressable, Button, View } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import styles from "./styles";
 
@@ -7,7 +7,7 @@ const Item = (props) => {
 
     const rightSwipe = () => {
         return (
-            <Pressable style={{width:'30%', alignItems:'center', justifyContent:'center', height:'100%', marginLeft:'-10%', borderTopRightRadius:20, borderBottomRightRadius:20, marginRight:'5%', backgroundColor:'#f93737'}}>
+            <Pressable style={styles.itemRightSwipe}>
                 <Feather name="trash-2" size={32} color="white" />
             </Pressable>
         );
@@ -16,7 +16,12 @@ const Item = (props) => {
     return(
         <View style={styles.itemContainer}>
 
-            <Swipeable overshootRight={false} renderRightActions={rightSwipe}>
+            <Swipeable 
+                onSwipeableClose={() => props.sliderOpened(props.id)} 
+                onSwipeableOpen={() => props.sliderOpened(props.id) } 
+                overshootRight={false} 
+                renderRightActions={rightSwipe}
+            >
                 <Pressable style={styles.itemButton} onPress={() => { props.toggleSliderValue }}>
                     <Text style={styles.itemText}>{props.name}</Text>
                 </Pressable>
