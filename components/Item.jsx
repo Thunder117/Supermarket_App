@@ -1,5 +1,5 @@
 import { Swipeable } from "react-native-gesture-handler";
-import { Text, Pressable, Button, View } from "react-native";
+import { Text, Pressable, View } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import styles from "./styles";
 
@@ -17,8 +17,8 @@ const Item = (props) => {
         <View style={styles.itemContainer}>
 
             <Swipeable overshootRight={false} renderRightActions={rightSwipe}>
-                <Pressable style={styles.itemButton} onPress={() => { console.log('pressed') }}>
-                    <Text style={styles.itemText}>{props.item}</Text>
+                <Pressable style={styles.itemButton} onPress={() => { props.toggleSliderValue }}>
+                    <Text style={styles.itemText}>{props.name}</Text>
                 </Pressable>
             </Swipeable>
 

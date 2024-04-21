@@ -1,29 +1,51 @@
-import { FlatList, View } from "react-native";
+import { View } from "react-native";
 import { Item } from "../index";
+import { useState, useEffect } from "react";
 
 const Home = () => {
-    const data = [
+    
+    const [items, setItems] = useState([
         {
-            name: "Banano"
+            id: 0,
+            name: "Banano",
+            slider: false
         },
         {
-            name: "Manzana"
+            id: 1,
+            name: "Manzana",
+            slider: false
         },
         {
-            name: "Pepino"
+            id: 2,
+            name: "Pepino",
+            slider: false
         }
-    ];
+    ]);
+    
+
+    // Toggles the slider value of the item
+    const toggleSliderValue = () => {
+        let temporalItems = items;
+
+        console.log(items);
+        console.log(temporalItems);
+    }
 
     return(
         <View style={{flex: 1, backgroundColor:'white'}}>
-            <FlatList
-                data={data}
-                renderItem={({item, index}) => {
-                    return <Item item={item.name} index={index} />;
-                }}
-            />
+            { items.map((item) => {
+                    
+                return(
+                    <Item 
+                        name={item.name} 
+                        toggleSliderValue={toggleSliderValue} 
+                        key={item.id}
+                    />
+                );
+            })}
         </View>
     );
 }
+
 
 export default Home;
