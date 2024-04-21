@@ -1,40 +1,30 @@
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import { Item } from "../index";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Home = () => {
-    
     const [items, setItems] = useState([
         {
             id: 0,
-            name: "Banano",
+            name: "Banano 🍌",
             slider: false
         },
         {
             id: 1,
-            name: "Manzana",
+            name: "Manzana 🍎",
             slider: false
         },
         {
             id: 2,
-            name: "Pepino",
+            name: "Pepino 🥒",
             slider: false
         },
         {
             id: 4,
-            name: "Papa",
+            name: "Papa 🥔",
             slider: false
         }
     ]);
-    /*
-    // Returns activities with an activity removed
-    const cutFromActivities = (activity) => {
-
-        let newActivities = [...activities.slice(0, index), ...activities.slice(index + 1)];
-        return newActivities;
-    };*/
-
-
 
     // Returns the index of an item by their Id
     const findItemById = (itemId) => {
@@ -62,26 +52,29 @@ const Home = () => {
         setItems(newItems);
     };
 
+    // Called when an item is swiped
     const sliderOpened = (itemId) => {
         toggleSliderValue(itemId);
-
-        console.log(items);
     };
 
     return(
-        <View style={{flex: 1, backgroundColor:'white'}}>
-            { items.map((item) => {
-                    
-                return(
-                    <Item 
-                        id={item.id}
-                        name={item.name} 
-                        sliderOpened={sliderOpened} 
-                        key={item.id}
-                    />
-                );
-            })}
-        </View>
+        <ScrollView style={{backgroundColor:'white'}}>
+
+            <View style={{flex: 1}}>
+                { items.map((item) => {
+                        
+                    return(
+                        <Item 
+                            id={item.id}
+                            name={item.name} 
+                            sliderOpened={sliderOpened} 
+                            key={item.id}
+                        />
+                    );
+                })}
+            </View>
+            
+        </ScrollView>
     );
 };
 

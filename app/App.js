@@ -7,7 +7,6 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
 
-
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
 			<NavigationContainer>
