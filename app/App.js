@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Home from '../components/Home.jsx';
+import Home from '../components/screens/Home.jsx';
 
 const Stack = createNativeStackNavigator();
 
