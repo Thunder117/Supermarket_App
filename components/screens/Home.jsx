@@ -58,11 +58,10 @@ const Home = () => {
     };
 
     return(
-        <ScrollView style={{backgroundColor:'white'}}>
+        <ScrollView style={{backgroundColor:'#EFF2F6'}}>
 
-            <View style={{flex: 1}}>
+            <View style={{marginTop:10, marginBottom:10}}>
                 { items.map((item) => {
-                        
                     return(
                         <Item 
                             id={item.id}

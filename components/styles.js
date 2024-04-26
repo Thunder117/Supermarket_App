@@ -6,10 +6,14 @@ const styles = StyleSheet.create({
     itemContainer: {
         width:'100%', 
         height:80, 
-        marginTop:10
+        marginTop:2,
+        marginBottom:2,
+        paddingTop: 2,
+        paddingBottom: 2
     },
     itemButton: {
-        backgroundColor:"#f5f5f6", 
+        backgroundColor:"white", 
+        borderWidth:0.5,
         width:"90%", 
         borderRadius:20,  
         height:'100%', 
