@@ -17,20 +17,27 @@ function Tabs() {
         <Tab.Navigator
             initialRouteName={homeName}
             screenOptions={({route}) => ({
-                tabBarIcon: ({focused, color, size}) => {
-                let iconName;
-                let rn = route.name;
-                if (rn === homeName) {
-                    iconName = focused ? 'home' : 'home-outline'
-                } else if (rn === listsName) {
-                    iconName = focused ? 'list' : 'list-outline'
-                }
+                tabBarStyle: { 
+                    height: 70,
+                    paddingBottom:10,
+                    padding: 10
+                },
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+                    let rn = route.name;
+                    if (rn === homeName) {
+                        iconName = focused ? 'home' : 'home-outline'
+                    } else if (rn === listsName) {
+                        iconName = focused ? 'list' : 'list-outline'
+                    }
 
-                return <Ionicons name={iconName} size={size} color={color}/>
-            },
-        })}>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Lists" component={Lists} />
+                    return <Ionicons name={iconName} size={size} color={color}/>
+                },
+            })}
+            
+        >
+            <Tab.Screen name={homeName} component={Home} />
+            <Tab.Screen name={listsName} component={Lists} />
         </Tab.Navigator>
     );
 }

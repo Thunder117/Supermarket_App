@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     // Item
     itemContainer: {
         width:'100%', 
-        height:80, 
+        height:70, 
         marginTop:2,
         marginBottom:2,
         paddingTop: 2,
