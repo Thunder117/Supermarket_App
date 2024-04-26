@@ -1,7 +1,7 @@
-import Item from "./Item";
-import List from "./List";
+import ItemCard from "./ItemCard";
+import ListCard from "./ListCard";
 
 export {
-    Item,
-    List
+    ItemCard,
+    ListCard
 };

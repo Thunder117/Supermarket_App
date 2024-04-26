@@ -1,5 +1,5 @@
 import { View, ScrollView } from "react-native";
-import { Item } from "../index";
+import { ItemCard } from "../index";
 import { useState } from "react";
 
 const Home = () => {
@@ -63,7 +63,7 @@ const Home = () => {
             <View style={{marginTop:10, marginBottom:10}}>
                 { items.map((item) => {
                     return(
-                        <Item 
+                        <ItemCard 
                             id={item.id}
                             name={item.name} 
                             sliderOpened={sliderOpened} 

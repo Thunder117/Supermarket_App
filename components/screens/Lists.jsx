@@ -1,5 +1,5 @@
 import { View, ScrollView } from "react-native";
-import { List } from "../index";
+import { ListCard } from "../index";
 import { useState } from "react";
 
 const Lists = () => {
@@ -22,13 +22,13 @@ const Lists = () => {
     };
  
     return (
-        <ScrollView style={{backgroundColor:'white'}}>
+        <ScrollView style={{backgroundColor:'#EFF2F6'}}>
 
-            <View>
+            <View style={{marginTop:10, marginBottom:10}}>
 
                 { lists.map((list) => {
                     return(
-                        <List 
+                        <ListCard 
                             id={list.id}
                             name={list.name} 
                             sliderOpened={sliderOpened} 
