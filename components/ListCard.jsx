@@ -7,14 +7,14 @@ const List = (props) => {
 
     const rightSwipe = () => {
         return (
-            <Pressable style={styles.itemRightSwipe}>
+            <Pressable style={styles.rightSwipe}>
                 <Feather name="trash-2" size={32} color="white" />
             </Pressable>
         );
     };
 
     return(
-        <View style={styles.itemContainer}>
+        <View style={styles.listContainer}>
 
             <Swipeable 
                 onSwipeableClose={() => props.sliderOpened(props.id)} 

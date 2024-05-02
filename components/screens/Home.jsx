@@ -7,21 +7,31 @@ const Home = () => {
         {
             id: 0,
             name: "Banano 🍌",
+            department: "Produce",
             slider: false
         },
         {
             id: 1,
             name: "Manzana 🍎",
+            department: "Produce",
             slider: false
         },
         {
             id: 2,
             name: "Pepino 🥒",
+            department: "Produce",
+            slider: false
+        },
+        {
+            id: 3,
+            name: "Huevo 🥚",
+            department: "Dairy",
             slider: false
         },
         {
             id: 4,
             name: "Papa 🥔",
+            department: "Produce",
             slider: false
         }
     ]);
@@ -66,6 +76,7 @@ const Home = () => {
                         <ItemCard 
                             id={item.id}
                             name={item.name} 
+                            department={item.department}
                             sliderOpened={sliderOpened} 
                             key={item.id}
                         />
