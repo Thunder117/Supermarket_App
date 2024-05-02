@@ -22,7 +22,7 @@ const ListCard = (props) => {
                 overshootRight={false} 
                 renderRightActions={rightSwipe}
             >
-                <Pressable style={styles.itemButton} onPress={() => props.navigateToListDetails(props.id) }>
+                <Pressable style={styles.itemButton} onPress={() => props.navigateToListDetails(props.id, props.name, props.items) }>
                     <Text style={styles.itemText}>{props.name}</Text>
                 </Pressable>
             </Swipeable>

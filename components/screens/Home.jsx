@@ -1,40 +1,10 @@
+import { useContext  } from "react";
 import { View, ScrollView } from "react-native";
 import { ItemCard } from "../index";
-import { useState } from "react";
+import { ItemsContext } from '../StateContext';
 
 const Home = () => {
-    const [items, setItems] = useState([
-        {
-            id: 0,
-            name: "Banano 🍌",
-            department: "Produce",
-            slider: false
-        },
-        {
-            id: 1,
-            name: "Manzana 🍎",
-            department: "Produce",
-            slider: false
-        },
-        {
-            id: 2,
-            name: "Pepino 🥒",
-            department: "Produce",
-            slider: false
-        },
-        {
-            id: 3,
-            name: "Huevo 🥚",
-            department: "Dairy",
-            slider: false
-        },
-        {
-            id: 4,
-            name: "Papa 🥔",
-            department: "Produce",
-            slider: false
-        }
-    ]);
+    const { items, setItems } = useContext(ItemsContext)
 
     // Returns the index of an item by their Id
     const findItemById = (itemId) => {

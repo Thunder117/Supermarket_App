@@ -1,25 +1,12 @@
 import { View, ScrollView } from "react-native";
 import { ListCard } from "../index";
-import { useState } from "react";
+import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { ItemsContext } from '../StateContext';
 
 const Lists = () => {
     const navigation = useNavigation();
-
-    const [lists, setLists] = useState([
-        {
-            id: 0,
-            name: "Basic food basket",
-            items: [ 0, 1 ],
-            slider: false
-        },
-        {
-            id: 1,
-            name: "I just got paid",
-            items: [ 2, 3 ],
-            slider: false
-        }
-    ]);
+    const { lists, setLists } = useContext(ItemsContext)
 
     // Called when an list is swiped
     const sliderOpened = (itemId) => {
@@ -27,8 +14,8 @@ const Lists = () => {
     };
 
     // Function to navigate to ListDetails screen
-    const navigateToListDetails = (listId) => {
-        navigation.navigate('ListDetails', { listId });
+    const navigateToListDetails = (listId, listName, listItems) => {
+        navigation.navigate('ListDetails', { listId, listName, listItems });
     };
  
     return (
@@ -41,6 +28,7 @@ const Lists = () => {
                         <ListCard 
                             id={list.id}
                             name={list.name} 
+                            items={list.items}
                             navigateToListDetails={navigateToListDetails}
                             sliderOpened={sliderOpened} 
                             key={list.id}

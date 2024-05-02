@@ -1,15 +1,30 @@
-
-import { View, Text } from "react-native";
+import { Text, ScrollView } from "react-native";
+import { useRoute } from '@react-navigation/native';
 import styles from "../styles";
 
-const ListDetails = (props) => {
+const ListDetails = () => {
+    const route = useRoute(); // Access the route object using the useRoute hook
+    const { listId, listName, listItems } = route.params;
 
     return (
-        <View>
-            <Text>
-                ListDetails
-            </Text>
-        </View>
+        <ScrollView style={{backgroundColor:'#EFF2F6'}}>
+
+            <Text>List Details for List ID: {listId}</Text>
+            <Text>names: {listName}</Text>
+            <Text>items: {listItems}</Text>
+            { listItems.map((item) => {
+                return(
+                    <ItemCard 
+                        id={item.id}
+                        name={item.name} 
+                        department={item.department}
+                        sliderOpened={sliderOpened} 
+                        key={item.id}
+                    />
+                );
+            })}
+
+        </ScrollView>
     );
 }
 
