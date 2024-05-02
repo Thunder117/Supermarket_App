@@ -3,7 +3,7 @@ import { Text, Pressable, View } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import styles from "./styles";
 
-const List = (props) => {
+const ListCard = (props) => {
 
     const rightSwipe = () => {
         return (
@@ -22,7 +22,7 @@ const List = (props) => {
                 overshootRight={false} 
                 renderRightActions={rightSwipe}
             >
-                <Pressable style={styles.itemButton} onPress={() => {  }}>
+                <Pressable style={styles.itemButton} onPress={() => props.navigateToListDetails(props.id) }>
                     <Text style={styles.itemText}>{props.name}</Text>
                 </Pressable>
             </Swipeable>
@@ -31,4 +31,4 @@ const List = (props) => {
     );
 }
 
-export default List;
+export default ListCard;
