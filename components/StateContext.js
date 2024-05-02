@@ -45,7 +45,7 @@ export const StateProvider = ({ children }) => {
         {
             id: 1,
             name: "I just got paid",
-            items: [ 2, 3 ],
+            items: [ 2, 3, 4 ],
             slider: false
         }
     ]);

@@ -1,25 +1,27 @@
 import { Text, ScrollView } from "react-native";
+import { useContext } from "react";
 import { useRoute } from '@react-navigation/native';
+import { ItemsContext } from '../StateContext';
+import { ItemCard } from "../index";
 import styles from "../styles";
 
 const ListDetails = () => {
     const route = useRoute(); // Access the route object using the useRoute hook
     const { listId, listName, listItems } = route.params;
+    
+    const { items, setItems } = useContext(ItemsContext)
 
     return (
         <ScrollView style={{backgroundColor:'#EFF2F6'}}>
 
             <Text>List Details for List ID: {listId}</Text>
-            <Text>names: {listName}</Text>
-            <Text>items: {listItems}</Text>
+            <Text>List name: {listName}</Text>
             { listItems.map((item) => {
                 return(
                     <ItemCard 
-                        id={item.id}
-                        name={item.name} 
-                        department={item.department}
-                        sliderOpened={sliderOpened} 
-                        key={item.id}
+                        id={item}
+                        name={items[item].name}
+                        key={item}
                     />
                 );
             })}
