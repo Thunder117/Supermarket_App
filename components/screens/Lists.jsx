@@ -7,11 +7,13 @@ const Lists = () => {
         {
             id: 0,
             name: "Basic food basket",
+            items: [ 0, 1],
             slider: false
         },
         {
             id: 1,
             name: "I just got paid",
+            items: [ 2, 3],
             slider: false
         }
     ]);

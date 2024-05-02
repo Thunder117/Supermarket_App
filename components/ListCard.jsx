@@ -22,7 +22,7 @@ const List = (props) => {
                 overshootRight={false} 
                 renderRightActions={rightSwipe}
             >
-                <Pressable style={styles.itemButton} onPress={() => { console.log("list pressed") }}>
+                <Pressable style={styles.itemButton} onPress={() => {  }}>
                     <Text style={styles.itemText}>{props.name}</Text>
                 </Pressable>
             </Swipeable>
