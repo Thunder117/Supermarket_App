@@ -7,7 +7,7 @@ const Item = (props) => {
 
     const rightSwipe = () => {
         return (
-            <Pressable style={styles.rightSwipe}>
+            <Pressable style={styles.rightSwipe} onPress={() => props.deleteItem(props.id) }>
                 <Feather name="trash-2" size={32} color="white" />
             </Pressable>
         );
