@@ -17,7 +17,7 @@ const Tabs = () => {
 	
   	return (
 		<StateProvider>
-			<Tab.Navigator
+			<Tab.Navigator 
 				initialRouteName="Home"
 				screenOptions={({ route }) => ({
 					tabBarIcon: ({ focused, color, size }) => {
@@ -31,6 +31,7 @@ const Tabs = () => {
 
 						return <Ionicons name={iconName} size={size} color={color} />;
 					},
+					headerShown: false
 				})}
 			>
 
@@ -43,7 +44,7 @@ const Tabs = () => {
 };
 
 const HomeStackScreen = () => (
-	<HomeStack.Navigator screenOptions={{ headerShown: false }}>
+	<HomeStack.Navigator>
 		<HomeStack.Screen name="HomeScreen" component={Home}
 		/>
 		<HomeStack.Screen name="HomeDetails" component={Details} />
@@ -51,7 +52,7 @@ const HomeStackScreen = () => (
 );
   
 const ListsStackScreen = () => (
-	<ListsStack.Navigator screenOptions={{ headerShown: false }}>
+	<ListsStack.Navigator>
 		<ListsStack.Screen name="ListsScreen" component={Lists} />
 		<ListsStack.Screen name="ListDetails" component={Details} />
 	</ListsStack.Navigator>
