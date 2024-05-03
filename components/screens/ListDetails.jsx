@@ -17,7 +17,6 @@ const ListDetails = () => {
     }, []);
 
     const checkItem = (itemId) => {
-        console.log("clicked " + itemId)
         setLists(prevLists => {
             return prevLists.map(list => {
                 const updatedItems = list.items.map(item => {
@@ -68,21 +67,25 @@ const ListDetails = () => {
                     <TextInput placeholder={"Search..."} maxLength={20} style={{ fontSize:20,height:'100%', width:'85%',}}/>
                     <Ionicons name="search" size={32} color="gray" style={{ alignSelf:'center' }}/>
                 </View>
-
-                { lists[listId].items.map((item) => {
-                    return (
-                        <ItemCard 
-                            id={item.id}
-                            name={items[item.id].name}
-                            department={items[item.id].department}
-                            checked={item.checked}
-                            checkItem={checkItem}
-                            deleteItem={deleteItem}
-                            sliderOpened={sliderOpened} 
-                            key={item.id}
-                        />
-                    );
-                })}
+                
+                <View>
+                    { lists[listId].items.map((item) => {
+                        return (
+                        
+                            <ItemCard 
+                                id={item.id}
+                                name={items[item.id].name}
+                                department={items[item.id].department}
+                                checked={item.checked}
+                                checkItem={checkItem}
+                                deleteItem={deleteItem}
+                                sliderOpened={sliderOpened} 
+                                key={item.id}
+                            />
+                            
+                        );
+                    })}
+                </View>
 
             </View>
 

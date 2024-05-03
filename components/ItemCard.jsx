@@ -16,24 +16,30 @@ const Item = (props) => {
 
     return(
         <View style={styles.itemContainer}>
-
-            <Swipeable 
-                onSwipeableClose={() => props.sliderOpened(props.id)} 
-                onSwipeableOpen={() => props.sliderOpened(props.id) } 
-                overshootRight={false} 
-                renderRightActions={rightSwipe}
-            >
-                <Pressable style={styles.itemButton} onPress={() => props.checkItem(props.id) }>
-                    <Text style={styles.itemText}>{props.name}</Text>
-                    { props.checked 
-                    ? 
-                        <AntDesign name="checkcircle" size={28} color="green" />
-                    :
-                        <AntDesign name="checkcircleo" size={28} color="green" />
-                    }
+            <View style={{flex:7}}>
+                <Swipeable 
+                    onSwipeableClose={() => props.sliderOpened(props.id)} 
+                    onSwipeableOpen={() => props.sliderOpened(props.id) } 
+                    overshootRight={false} 
+                    renderRightActions={rightSwipe}
+                >
+                    <View style={styles.itemButton}>
+                        <Text style={styles.itemText}>
+                            {props.name}
+                        </Text>
+                    </View>
                     
-                </Pressable>
-            </Swipeable>
+                </Swipeable>
+            </View>
+
+            <Pressable style={{flex:2, height:'100%', marginLeft:'-5%', marginRight:'5%', alignItems:'center', justifyContent:'center', }} onPress={() => props.checkItem(props.id)}>
+                { props.checked 
+                ? 
+                    <AntDesign name="checkcircle" size={32} color="green" />
+                :
+                    <AntDesign name="checkcircleo" size={32} color="green" />
+                }
+            </Pressable>
 
         </View>
     );

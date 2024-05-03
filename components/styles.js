@@ -9,13 +9,14 @@ const styles = StyleSheet.create({
         marginTop:2,
         marginBottom:2,
         paddingTop: 2,
-        paddingBottom: 2
+        paddingBottom: 2,
+        flexDirection:"row",
     },
     itemButton: {
         backgroundColor:"white",
-        width:"90%", 
+        width:"80%", 
         height:'100%', 
-        paddingHorizontal:"5%",
+        paddingHorizontal:"10%",
         borderRadius:10,  
         alignSelf:'center', 
         justifyContent:'space-between', 
@@ -39,10 +40,10 @@ const styles = StyleSheet.create({
         alignItems:'center', 
         justifyContent:'center', 
         height:'100%', 
-        marginLeft:'-10%', 
+        marginLeft:'-15%', 
         borderTopRightRadius:20, 
         borderBottomRightRadius:20, 
-        marginRight:'5%', 
+        marginRight:'10%', 
         backgroundColor:'#f93737'
     }
 });
