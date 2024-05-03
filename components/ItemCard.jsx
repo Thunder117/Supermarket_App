@@ -25,7 +25,13 @@ const Item = (props) => {
             >
                 <Pressable style={styles.itemButton} onPress={() => props.checkItem(props.id) }>
                     <Text style={styles.itemText}>{props.name}</Text>
-                    <AntDesign name="checkcircleo" size={28} color="green" />
+                    { props.checked 
+                    ? 
+                        <AntDesign name="checkcircle" size={28} color="green" />
+                    :
+                        <AntDesign name="checkcircleo" size={28} color="green" />
+                    }
+                    
                 </Pressable>
             </Swipeable>
 

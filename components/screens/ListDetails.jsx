@@ -16,6 +16,21 @@ const ListDetails = () => {
         navigation.setOptions({ headerTitle: listName });
     }, []);
 
+    const checkItem = (itemId) => {
+        console.log("clicked " + itemId)
+        setLists(prevLists => {
+            return prevLists.map(list => {
+                const updatedItems = list.items.map(item => {
+                    if (item.id === itemId) {
+                        return { ...item, checked: !item.checked };
+                    }
+                    return item;
+                });
+                return { ...list, items: updatedItems };
+            });
+        });
+    };
+
     // Deletes an item from the list by its ID
     const deleteItem = (itemIdToDelete) => {
         const newLists = lists.map((list) => {
@@ -60,6 +75,8 @@ const ListDetails = () => {
                             id={item.id}
                             name={items[item.id].name}
                             department={items[item.id].department}
+                            checked={item.checked}
+                            checkItem={checkItem}
                             deleteItem={deleteItem}
                             sliderOpened={sliderOpened} 
                             key={item.id}
