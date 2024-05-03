@@ -7,7 +7,7 @@ const Home = () => {
     const { items, setItems } = useContext(ItemsContext)
 
     // Returns the index of an item by their Id
-    const findItemById = (itemId) => {
+    const findItemById = (itemId) => { // TODO: this can be improved using map((c, i))
         let index = 0;
         let counter = 0;
         items.forEach(currentItem => {
