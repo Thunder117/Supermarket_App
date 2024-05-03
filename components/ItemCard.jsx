@@ -1,6 +1,7 @@
 import { Swipeable } from "react-native-gesture-handler";
 import { Text, Pressable, View } from "react-native";
 import { Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import styles from "./styles";
 
 const Item = (props) => {
@@ -22,8 +23,9 @@ const Item = (props) => {
                 overshootRight={false} 
                 renderRightActions={rightSwipe}
             >
-                <Pressable style={styles.itemButton} onPress={() => { }}>
+                <Pressable style={styles.itemButton} onPress={() => props.checkItem(props.id) }>
                     <Text style={styles.itemText}>{props.name}</Text>
+                    <AntDesign name="checkcircleo" size={28} color="green" />
                 </Pressable>
             </Swipeable>
 

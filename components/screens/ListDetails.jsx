@@ -1,9 +1,10 @@
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, TextInput, Pressable } from "react-native";
 import { useContext, useEffect } from "react";
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { ItemsContext } from '../StateContext';
 import { ItemCard } from "../index";
-import styles from "../styles";
+import { Ionicons } from '@expo/vector-icons';
+import styles from "../styles"; 
 
 const ListDetails = () => {
     const route = useRoute(); 
@@ -19,12 +20,12 @@ const ListDetails = () => {
     const deleteItem = (itemIdToDelete) => {
         const newLists = lists.map((list) => {
             if (list.id === listId) {
-                const updatedItems = list.items.filter((itemId) => itemId !== itemIdToDelete);
+                const updatedItems = list.items.filter((item) => item.id !== itemIdToDelete);
                 return { ...list, items: updatedItems };
             }
             return list;
         });
-        setLists(newLists)
+        setLists(newLists);
     };
     
     const sliderOpened = (itemId) => {
@@ -35,18 +36,37 @@ const ListDetails = () => {
         <ScrollView style={{backgroundColor:'#EFF2F6'}}>
             
             <View style={{marginTop:10, marginBottom:10}}>
+
+                <View style={{
+                    backgroundColor:"white",
+                    width:"90%",
+                    height:60,
+                    alignSelf:'center', 
+                    justifyContent:'center', 
+                    borderRadius:50, 
+                    paddingLeft:30,
+                    paddingRight:10,
+                    marginTop:10,
+                    marginBottom:10,   
+                    flexDirection: "row"
+                }}>
+                    <TextInput placeholder={"Search..."} maxLength={20} style={{ fontSize:20,height:'100%', width:'85%',}}/>
+                    <Ionicons name="search" size={32} color="gray" style={{ alignSelf:'center' }}/>
+                </View>
+
                 { lists[listId].items.map((item) => {
-                    return(
+                    return (
                         <ItemCard 
-                            id={item}
-                            name={items[item].name}
-                            department={items[item].department}
+                            id={item.id}
+                            name={items[item.id].name}
+                            department={items[item.id].department}
                             deleteItem={deleteItem}
                             sliderOpened={sliderOpened} 
-                            key={item}
+                            key={item.id}
                         />
                     );
                 })}
+
             </View>
 
         </ScrollView>

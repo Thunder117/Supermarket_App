@@ -211,25 +211,39 @@ export const StateProvider = ({ children }) => {
 		},
 	]);
     const [lists, setLists] = useState([
-        {
-            id: 0,
-            name: "Basic food basket",
-            items: [ 0, 1 ],
-            slider: false
-        },
-        {
-            id: 1,
-            name: "I just got paid",
-            items: [ 2, 3, 4 ],
-            slider: false
-        },
 		{
-            id: 2,
-            name: "Random stuff",
-            items: [ 22, 10, 16, 18, 1, 3 ],
-            slider: false
-        }
-    ]);
+			id: 0,
+			name: "Basic food basket",
+			items: [
+				{ id: 0, checked: false },
+				{ id: 1, checked: false }
+			],
+			slider: false
+		},
+		{
+			id: 1,
+			name: "I just got paid",
+			items: [
+				{ id: 2, checked: false },
+				{ id: 3, checked: false },
+				{ id: 4, checked: false }
+			],
+			slider: false
+		},
+		{
+			id: 2,
+			name: "Random stuff",
+			items: [
+				{ id: 22, checked: false },
+				{ id: 10, checked: false },
+				{ id: 16, checked: false },
+				{ id: 18, checked: false },
+				{ id: 1, checked: false },
+				{ id: 3, checked: false }
+			],
+			slider: false
+		}
+	]);
 
     return (
         <ItemsContext.Provider value={{ items, setItems, lists, setLists }}>

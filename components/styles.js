@@ -14,11 +14,13 @@ const styles = StyleSheet.create({
     itemButton: {
         backgroundColor:"white",
         width:"90%", 
-        borderRadius:20,  
         height:'100%', 
+        paddingHorizontal:"5%",
+        borderRadius:10,  
         alignSelf:'center', 
-        justifyContent:"center", 
-        alignItems:"center"
+        justifyContent:'space-between', 
+        alignItems:"center",
+        flexDirection:"row"
     },
     itemText: {
         fontSize:20, 
