@@ -169,7 +169,7 @@ export const StateProvider = ({ children }) => {
 		},
 		{
 			id: 27,
-			name: "Cebolla 🧅🧄",
+			name: "Cebolla 🧅",
 			department: "Produce",
 			slider: false
 		},
@@ -221,6 +221,12 @@ export const StateProvider = ({ children }) => {
             id: 1,
             name: "I just got paid",
             items: [ 2, 3, 4 ],
+            slider: false
+        },
+		{
+            id: 2,
+            name: "Random stuff",
+            items: [ 22, 10, 16, 18, 1, 3 ],
             slider: false
         }
     ]);
