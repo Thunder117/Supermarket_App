@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { View, Text, ScrollView, TextInput, TouchableOpacity, Platform, Animated } from "react-native";
+import { View, Text, ScrollView, TextInput, TouchableOpacity, Platform, Animated, Modal, FlatList } from "react-native";
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { ItemsContext } from '../StateContext';
 import { ItemCard } from "../index";
@@ -14,8 +14,11 @@ const ListDetails = () => {
     const { items, lists, setLists } = useContext(ItemsContext);
     const [searchQuery, setSearchQuery] = useState('');
     const [isButtonVisible, setIsButtonVisible] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
     const scrollViewRef = useRef(null);
     const buttonOpacity = useRef(new Animated.Value(1)).current;
+    const [itemsNotInList, setItemsNotInList] = useState();
 
     const checkItem = (itemId) => {
         setLists(prevLists => {
@@ -55,18 +58,25 @@ const ListDetails = () => {
     });
 
     const addNewItem = () => {
-        // Perform the action to add a new item here
-        // For example, you can navigate to a screen for adding a new item
-        // navigation.navigate('AddItemScreen');
-        // Or you can update the state to add a new item directly
-        // setLists([...lists, { id: newListId, items: [], name: 'New List' }]);
+        // Filter items that are not already in the current list
+        const itemsNotInList = items.filter(item => {
+            // Check if the item is not already in the current list
+            return !lists[listId].items.some(listItem => listItem.id === item.id);
+        });
+        setItemsNotInList(itemsNotInList);
+        
+        // Set the selected item to null to reset it
+        setSelectedItem(null);
+
+        // Show the modal with the filtered items
+        setModalVisible(true);
     };
 
     const handleScroll = (event) => {
         const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
         const distanceToEnd = contentSize.height - layoutMeasurement.height - contentOffset.y;
         // If the distance to the end is less than a threshold (e.g., 50), hide the button
-        setIsButtonVisible(distanceToEnd > 50);
+        setIsButtonVisible(distanceToEnd > 10);
     };
 
     useEffect(() => {
@@ -122,24 +132,22 @@ const ListDetails = () => {
                         <Ionicons name="search" size={32} color="gray" style={{ alignSelf:'center' }}/>
                     </View>
                     
-                    <View style={{marginTop:10, marginBottom:20}}>
+                    <View style={{marginVertical:10}}>
                         {Object.entries(groupedItems).map(([department, itemsInDepartment]) => (
                             <View key={department}>
-                                <View style={{marginBottom: 10}}>
-                                    <Text style={{fontSize: 22, fontWeight: 'bold', marginBottom: 10, marginHorizontal:20}}>{department}</Text>
-                                    {itemsInDepartment.map(item => (
-                                        <ItemCard 
-                                            id={item.id}
-                                            name={items[item.id].name}
-                                            department={department}
-                                            checked={item.checked}
-                                            checkItem={checkItem}
-                                            deleteItem={deleteItem}
-                                            sliderOpened={sliderOpened} 
-                                            key={item.id}
-                                        />
-                                    ))}
-                                </View>
+                                <Text style={{fontSize: 22, fontWeight: 'bold', marginVertical: 10, marginHorizontal:20}}>{department}</Text>
+                                {itemsInDepartment.map(item => (
+                                    <ItemCard 
+                                        id={item.id}
+                                        name={items[item.id].name}
+                                        department={department}
+                                        checked={item.checked}
+                                        checkItem={checkItem}
+                                        deleteItem={deleteItem}
+                                        sliderOpened={sliderOpened} 
+                                        key={item.id}
+                                    />
+                                ))}
                             </View>
                         ))}
                     </View>
@@ -168,6 +176,49 @@ const ListDetails = () => {
                     <AntDesign name="plus" size={28} color="white" />
                 </TouchableOpacity>
             </Animated.View>
+
+            {/* Modal */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%', maxHeight: '80%' }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Add Item</Text>
+                        <FlatList
+                            data={itemsNotInList}
+                            keyExtractor={item => item.id.toString()}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity onPress={() => {
+                                    // Add the selected item to the current list
+                                    setLists(prevLists => {
+                                        const newList = prevLists.map(list => {
+                                            if (list.id === listId) {
+                                                return {
+                                                    ...list,
+                                                    items: [...list.items, { id: item.id, checked: false }]
+                                                };
+                                            }
+                                            return list;
+                                        });
+                                        return newList;
+                                    });
+                                    // Close the modal
+                                    setModalVisible(false);
+                                }}>
+                                    <Text style={{ fontSize: 16 }}>{item.name}</Text>
+                                </TouchableOpacity>
+                            )}
+                        />
+                        <TouchableOpacity onPress={() => setModalVisible(false)} style={{ marginTop: 20 }}>
+                            <Text style={{ color: 'blue', fontSize: 16 }}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+
         </View>
     );
 }
