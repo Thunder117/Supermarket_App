@@ -18,7 +18,8 @@ const ListDetails = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const scrollViewRef = useRef(null);
     const buttonOpacity = useRef(new Animated.Value(1)).current;
-    const [itemsNotInList, setItemsNotInList] = useState();
+    const [itemsNotInList, setItemsNotInList] = useState([]);
+    const [selectedDepartment, setSelectedDepartment] = useState(null);
 
     const checkItem = (itemId) => {
         setLists(prevLists => {
@@ -59,11 +60,11 @@ const ListDetails = () => {
 
     const addNewItem = () => {
         // Filter items that are not already in the current list
-        const itemsNotInList = items.filter(item => {
+        const itemsNotInCurrentList = items.filter(item => {
             // Check if the item is not already in the current list
             return !lists[listId].items.some(listItem => listItem.id === item.id);
         });
-        setItemsNotInList(itemsNotInList);
+        setItemsNotInList(itemsNotInCurrentList);
         
         // Set the selected item to null to reset it
         setSelectedItem(null);
@@ -88,6 +89,9 @@ const ListDetails = () => {
             useNativeDriver: true,
         }).start();
     }, [isButtonVisible]);
+
+    // Static department names
+    const departmentNames = ["Produce", "Dairy", "Bakery", "Grocery", "Deli", "Frozen", "Meat and Seafood"];
 
     // Group filtered items by department
     const groupedItems = {};
@@ -185,8 +189,35 @@ const ListDetails = () => {
                 onRequestClose={() => setModalVisible(false)}
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%', maxHeight: '80%' }}>
+                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '90%', height: '80%' }}>
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Add Item</Text>
+                        {/* Department Buttons */}
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginBottom: 10, minHeight:30}}>
+                            {departmentNames.map(department => (
+                                <TouchableOpacity
+                                    key={department}
+                                    onPress={() => {
+                                        // Filter items by department
+                                        const departmentItems = items.filter(item => item.department === department && !lists[listId].items.some(listItem => listItem.id === item.id));
+                                        setItemsNotInList(departmentItems);
+                                        setSelectedDepartment(department);
+                                    }}
+                                    style={{
+                                        backgroundColor: '#e0e0e0',
+                                        paddingVertical: 4, // Adjust vertical padding
+                                        paddingHorizontal: 12, // Adjust horizontal padding
+                                        borderRadius: 5,
+                                        marginRight: 10,
+                                        maxHeight:30,
+                                        borderColor: selectedDepartment === department ? 'green' : '#e0e0e0',
+                                        borderWidth: selectedDepartment === department ? 2 : 0,
+                                    }}
+                                >
+                                    <Text>{department}</Text>
+                                </TouchableOpacity>                            
+                            ))}
+                        </ScrollView>
+                        {/* Items List */}
                         <FlatList
                             data={itemsNotInList}
                             keyExtractor={item => item.id.toString()}
@@ -208,7 +239,7 @@ const ListDetails = () => {
                                     // Close the modal
                                     setModalVisible(false);
                                 }}>
-                                    <Text style={{ fontSize: 16 }}>{item.name}</Text>
+                                    <Text style={{ fontSize: 24, marginVertical: 6 }}>{item.name}</Text>
                                 </TouchableOpacity>
                             )}
                         />
@@ -218,6 +249,7 @@ const ListDetails = () => {
                     </View>
                 </View>
             </Modal>
+
 
         </View>
     );
