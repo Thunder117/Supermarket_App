@@ -239,7 +239,11 @@ export const StateProvider = ({ children }) => {
 				{ id: 16, checked: false },
 				{ id: 18, checked: false },
 				{ id: 1, checked: false },
-				{ id: 3, checked: false }
+				{ id: 3, checked: false },
+				{ id: 17, checked: false },
+				{ id: 21, checked: false },
+				{ id: 25, checked: false },
+				{ id: 26, checked: false }
 			],
 			slider: false
 		}
