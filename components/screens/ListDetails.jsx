@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { View, ScrollView, TextInput, TouchableOpacity, Platform, Animated } from "react-native";
+import { View, Text, ScrollView, TextInput, TouchableOpacity, Platform, Animated } from "react-native";
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { ItemsContext } from '../StateContext';
 import { ItemCard } from "../index";
@@ -79,6 +79,16 @@ const ListDetails = () => {
         }).start();
     }, [isButtonVisible]);
 
+    // Group filtered items by department
+    const groupedItems = {};
+    filteredItems.forEach(item => {
+        const department = items[item.id].department;
+        if (!groupedItems[department]) {
+            groupedItems[department] = [];
+        }
+        groupedItems[department].push(item);
+    });
+
     return (
         <View style={{ flex: 1 }}>
 
@@ -113,17 +123,24 @@ const ListDetails = () => {
                     </View>
                     
                     <View style={{marginTop:10, marginBottom:20}}>
-                        { filteredItems.map((item) => (
-                            <ItemCard 
-                                id={item.id}
-                                name={items[item.id].name}
-                                department={items[item.id].department}
-                                checked={item.checked}
-                                checkItem={checkItem}
-                                deleteItem={deleteItem}
-                                sliderOpened={sliderOpened} 
-                                key={item.id}
-                            />
+                        {Object.entries(groupedItems).map(([department, itemsInDepartment]) => (
+                            <View key={department}>
+                                <View style={{marginBottom: 10}}>
+                                    <Text style={{fontSize: 22, fontWeight: 'bold', marginBottom: 10, marginHorizontal:20}}>{department}</Text>
+                                    {itemsInDepartment.map(item => (
+                                        <ItemCard 
+                                            id={item.id}
+                                            name={items[item.id].name}
+                                            department={department}
+                                            checked={item.checked}
+                                            checkItem={checkItem}
+                                            deleteItem={deleteItem}
+                                            sliderOpened={sliderOpened} 
+                                            key={item.id}
+                                        />
+                                    ))}
+                                </View>
+                            </View>
                         ))}
                     </View>
                 </View>
