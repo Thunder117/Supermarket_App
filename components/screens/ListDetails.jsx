@@ -1,5 +1,5 @@
-import { View, ScrollView, TextInput, Pressable } from "react-native";
-import { useContext, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { View, ScrollView, TextInput } from "react-native";
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { ItemsContext } from '../StateContext';
 import { ItemCard } from "../index";
@@ -10,7 +10,8 @@ const ListDetails = () => {
     const route = useRoute(); 
     const navigation = useNavigation();
     const { listId, listName } = route.params;
-    const { items, lists, setLists } = useContext(ItemsContext)
+    const { items, lists, setLists } = useContext(ItemsContext);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         navigation.setOptions({ headerTitle: listName });
@@ -19,18 +20,20 @@ const ListDetails = () => {
     const checkItem = (itemId) => {
         setLists(prevLists => {
             return prevLists.map(list => {
-                const updatedItems = list.items.map(item => {
-                    if (item.id === itemId) {
-                        return { ...item, checked: !item.checked };
-                    }
-                    return item;
-                });
-                return { ...list, items: updatedItems };
+                if (list.id === listId) { // Only update the current list
+                    const updatedItems = list.items.map(item => {
+                        if (item.id === itemId) {
+                            return { ...item, checked: !item.checked };
+                        }
+                        return item;
+                    });
+                    return { ...list, items: updatedItems };
+                }
+                return list;
             });
         });
     };
 
-    // Deletes an item from the list by its ID
     const deleteItem = (itemIdToDelete) => {
         const newLists = lists.map((list) => {
             if (list.id === listId) {
@@ -43,14 +46,18 @@ const ListDetails = () => {
     };
     
     const sliderOpened = (itemId) => {
-        //later
+        // Later implementation
     };
+
+    // Filter items based on searchQuery
+    const filteredItems = lists[listId].items.filter(item => {
+        const itemName = items[item.id].name.toLowerCase();
+        return itemName.includes(searchQuery.toLowerCase());
+    });
 
     return (
         <ScrollView style={{backgroundColor:'#EFF2F6'}}>
-            
             <View style={{marginTop:10, marginBottom:10}}>
-
                 <View style={{
                     backgroundColor:"white",
                     width:"90%",
@@ -64,31 +71,31 @@ const ListDetails = () => {
                     marginBottom:10,   
                     flexDirection: "row"
                 }}>
-                    <TextInput placeholder={"Search..."} maxLength={20} style={{ fontSize:20,height:'100%', width:'85%',}}/>
+                    <TextInput 
+                        placeholder={"Search..."} 
+                        maxLength={20} 
+                        style={{ fontSize:20,height:'100%', width:'85%',}}
+                        value={searchQuery}
+                        onChangeText={setSearchQuery}
+                    />
                     <Ionicons name="search" size={32} color="gray" style={{ alignSelf:'center' }}/>
                 </View>
                 
                 <View>
-                    { lists[listId].items.map((item) => {
-                        return (
-                        
-                            <ItemCard 
-                                id={item.id}
-                                name={items[item.id].name}
-                                department={items[item.id].department}
-                                checked={item.checked}
-                                checkItem={checkItem}
-                                deleteItem={deleteItem}
-                                sliderOpened={sliderOpened} 
-                                key={item.id}
-                            />
-                            
-                        );
-                    })}
+                    { filteredItems.map((item) => (
+                        <ItemCard 
+                            id={item.id}
+                            name={items[item.id].name}
+                            department={items[item.id].department}
+                            checked={item.checked}
+                            checkItem={checkItem}
+                            deleteItem={deleteItem}
+                            sliderOpened={sliderOpened} 
+                            key={item.id}
+                        />
+                    ))}
                 </View>
-
             </View>
-
         </ScrollView>
     );
 }

@@ -23,7 +23,6 @@ const ItemCard = (props) => {
                 renderRightActions={rightSwipe}
             >  
                 <View style={styles.itemButton}>
-                    <View style={{backgroundColor:'green',width:12,height:"100%"}}/>
                     <Text style={styles.itemText}>{props.name}</Text>
                     <Pressable style={{height:'100%',width:100,alignItems:'center', justifyContent:'center' }} onPress={() => props.checkItem(props.id)}>
                         { props.checked 

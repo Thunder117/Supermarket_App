@@ -5,11 +5,7 @@ const styles = StyleSheet.create({
     // Item
     itemContainer: {
         width:'100%', 
-        height:70, 
-        marginTop:2,
-        marginBottom:2,
-        paddingTop: 2,
-        paddingBottom: 2,
+        height:70,
         flexDirection:"row",
     },
     itemButton: {
@@ -22,8 +18,9 @@ const styles = StyleSheet.create({
         justifyContent:'space-between'
     },
     itemText: {
+        paddingHorizontal:40,
         fontSize:20, 
-        fontWeight:'500'
+        fontWeight:'500',
     },
     listContainer: {
         width:'100%', 
@@ -34,7 +31,7 @@ const styles = StyleSheet.create({
         paddingBottom: 2
     },
     rightSwipe:{
-        width:'30%', 
+        width:'20%', 
         alignItems:'center', 
         justifyContent:'center', 
         height:'100%', 
