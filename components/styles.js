@@ -14,14 +14,12 @@ const styles = StyleSheet.create({
     },
     itemButton: {
         backgroundColor:"white",
-        width:"80%", 
-        height:'100%', 
-        paddingHorizontal:"10%",
-        borderRadius:10,  
+        minWidth:'100%', 
+        height:'100%',
         alignSelf:'center', 
-        justifyContent:'space-between', 
         alignItems:"center",
-        flexDirection:"row"
+        flexDirection:"row",
+        justifyContent:'space-between'
     },
     itemText: {
         fontSize:20, 
@@ -40,10 +38,6 @@ const styles = StyleSheet.create({
         alignItems:'center', 
         justifyContent:'center', 
         height:'100%', 
-        marginLeft:'-15%', 
-        borderTopRightRadius:20, 
-        borderBottomRightRadius:20, 
-        marginRight:'10%', 
         backgroundColor:'#f93737'
     }
 });

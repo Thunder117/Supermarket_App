@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import styles from "./styles";
 
-const Item = (props) => {
+const ItemCard = (props) => {
 
     const rightSwipe = () => {
         return (
@@ -16,33 +16,27 @@ const Item = (props) => {
 
     return(
         <View style={styles.itemContainer}>
-            <View style={{flex:7}}>
-                <Swipeable 
-                    onSwipeableClose={() => props.sliderOpened(props.id)} 
-                    onSwipeableOpen={() => props.sliderOpened(props.id) } 
-                    overshootRight={false} 
-                    renderRightActions={rightSwipe}
-                >
-                    <View style={styles.itemButton}>
-                        <Text style={styles.itemText}>
-                            {props.name}
-                        </Text>
-                    </View>
-                    
-                </Swipeable>
-            </View>
-
-            <Pressable style={{flex:2, height:'100%', marginLeft:'-5%', marginRight:'5%', alignItems:'center', justifyContent:'center', }} onPress={() => props.checkItem(props.id)}>
-                { props.checked 
-                ? 
-                    <AntDesign name="checkcircle" size={32} color="green" />
-                :
-                    <AntDesign name="checkcircleo" size={32} color="green" />
-                }
-            </Pressable>
-
+            <Swipeable 
+                onSwipeableClose={() => props.sliderOpened(props.id)} 
+                onSwipeableOpen={() => props.sliderOpened(props.id) } 
+                overshootRight={false} 
+                renderRightActions={rightSwipe}
+            >  
+                <View style={styles.itemButton}>
+                    <View style={{backgroundColor:'green',width:12,height:"100%"}}/>
+                    <Text style={styles.itemText}>{props.name}</Text>
+                    <Pressable style={{height:'100%',width:100,alignItems:'center', justifyContent:'center' }} onPress={() => props.checkItem(props.id)}>
+                        { props.checked 
+                        ? 
+                            <AntDesign name="checksquare" size={32} color="green" />
+                        :
+                            <AntDesign name="checksquareo" size={32} color="green" />
+                        }
+                    </Pressable>
+                </View>
+            </Swipeable>
         </View>
     );
 }
 
-export default Item;
+export default ItemCard;
