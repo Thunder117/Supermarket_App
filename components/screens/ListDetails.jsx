@@ -2,9 +2,8 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { View, Text, ScrollView, TextInput, TouchableOpacity, Platform, Animated, Modal, FlatList } from "react-native";
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { ItemsContext } from '../StateContext';
-import { ItemCard } from "../index";
+import { ItemCard, FloatingButton, AddItemModal } from "../index";
 import { Ionicons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
 import styles from "../styles"; 
 
 const ListDetails = () => {
@@ -15,11 +14,8 @@ const ListDetails = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [isButtonVisible, setIsButtonVisible] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
     const scrollViewRef = useRef(null);
     const buttonOpacity = useRef(new Animated.Value(1)).current;
-    const [itemsNotInList, setItemsNotInList] = useState([]);
-    const [selectedDepartment, setSelectedDepartment] = useState(null);
 
     const checkItem = (itemId) => {
         setLists(prevLists => {
@@ -64,11 +60,6 @@ const ListDetails = () => {
             // Check if the item is not already in the current list
             return !lists[listId].items.some(listItem => listItem.id === item.id);
         });
-        setItemsNotInList(itemsNotInCurrentList);
-        
-        // Set the selected item to null to reset it
-        setSelectedItem(null);
-
         // Show the modal with the filtered items
         setModalVisible(true);
     };
@@ -76,7 +67,7 @@ const ListDetails = () => {
     const handleScroll = (event) => {
         const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
         const distanceToEnd = contentSize.height - layoutMeasurement.height - contentOffset.y;
-        // If the distance to the end is less than a threshold (e.g., 50), hide the button
+        // If the distance to the end is less than a threshold (e.g., 10), hide the button
         setIsButtonVisible(distanceToEnd > 10);
     };
 
@@ -89,9 +80,6 @@ const ListDetails = () => {
             useNativeDriver: true,
         }).start();
     }, [isButtonVisible]);
-
-    // Static department names
-    const departmentNames = ["Produce", "Dairy", "Bakery", "Grocery", "Deli", "Frozen", "Meat and Seafood"];
 
     // Group filtered items by department
     const groupedItems = {};
@@ -159,97 +147,17 @@ const ListDetails = () => {
             </ScrollView>
 
             {/* Floating Button */}
-            <Animated.View
-                style={[
-                    {
-                        position: 'absolute',
-                        bottom: 20,
-                        right: 20,
-                        backgroundColor: 'green',
-                        width: 60,
-                        height: 60,
-                        borderRadius: 30,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        opacity: buttonOpacity,
-                    },
-                    Platform.OS === 'android' ? { elevation: 7 } : { shadowColor: 'black', shadowOpacity: 0.3, shadowRadius: 3, shadowOffset: { width: 0, height: 3 } }
-                ]}
-            >
-                <TouchableOpacity onPress={addNewItem}>
-                    <AntDesign name="plus" size={28} color="white" />
-                </TouchableOpacity>
-            </Animated.View>
+            <FloatingButton addNewItem={addNewItem} buttonOpacity={buttonOpacity} />
 
             {/* Modal */}
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(false)}
-            >
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '90%', height: '80%' }}>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Add Item</Text>
-                        {/* Department Buttons */}
-                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginBottom: 10, minHeight:30}}>
-                            {departmentNames.map(department => (
-                                <TouchableOpacity
-                                    key={department}
-                                    onPress={() => {
-                                        // Filter items by department
-                                        const departmentItems = items.filter(item => item.department === department && !lists[listId].items.some(listItem => listItem.id === item.id));
-                                        setItemsNotInList(departmentItems);
-                                        setSelectedDepartment(department);
-                                    }}
-                                    style={{
-                                        backgroundColor: '#e0e0e0',
-                                        paddingVertical: 4, // Adjust vertical padding
-                                        paddingHorizontal: 12, // Adjust horizontal padding
-                                        borderRadius: 5,
-                                        marginRight: 10,
-                                        maxHeight:30,
-                                        borderColor: selectedDepartment === department ? 'green' : '#e0e0e0',
-                                        borderWidth: selectedDepartment === department ? 2 : 0,
-                                    }}
-                                >
-                                    <Text>{department}</Text>
-                                </TouchableOpacity>                            
-                            ))}
-                        </ScrollView>
-                        {/* Items List */}
-                        <FlatList
-                            data={itemsNotInList}
-                            keyExtractor={item => item.id.toString()}
-                            renderItem={({ item }) => (
-                                <TouchableOpacity onPress={() => {
-                                    // Add the selected item to the current list
-                                    setLists(prevLists => {
-                                        const newList = prevLists.map(list => {
-                                            if (list.id === listId) {
-                                                return {
-                                                    ...list,
-                                                    items: [...list.items, { id: item.id, checked: false }]
-                                                };
-                                            }
-                                            return list;
-                                        });
-                                        return newList;
-                                    });
-                                    // Close the modal
-                                    setModalVisible(false);
-                                }}>
-                                    <Text style={{ fontSize: 24, marginVertical: 6 }}>{item.name}</Text>
-                                </TouchableOpacity>
-                            )}
-                        />
-                        <TouchableOpacity onPress={() => setModalVisible(false)} style={{ marginTop: 20 }}>
-                            <Text style={{ color: 'blue', fontSize: 16 }}>Cancel</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
-
+            <AddItemModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                items={items}
+                listId={listId}
+                setLists={setLists}
+                lists={lists}
+            />
 
         </View>
     );
