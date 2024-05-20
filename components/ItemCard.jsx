@@ -17,8 +17,6 @@ const ItemCard = (props) => {
     return(
         <View style={styles.itemContainer}>
             <Swipeable 
-                onSwipeableClose={() => props.sliderOpened(props.id)} 
-                onSwipeableOpen={() => props.sliderOpened(props.id) } 
                 overshootRight={false} 
                 renderRightActions={rightSwipe}
             >  
