@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView, FlatList, Modal } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, FlatList, Modal, Button } from "react-native";
 
 const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, lists }) => {
     const departmentNames = ["All", "Produce", "Dairy", "Bakery", "Grocery", "Deli", "Frozen", "Meat and Seafood"];
     const [selectedDepartment, setSelectedDepartment] = useState("All"); // Initialize with "All"
     const [itemsNotInList, setItemsNotInList] = useState([]); // Initialize with an empty array
+    const [selectedItems, setSelectedItems] = useState([]); // State to keep track of selected items
 
     useEffect(() => {
         // Filter items that are not already in the list
@@ -31,22 +32,32 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
         setSelectedDepartment(department);
     };
 
-    const addItemToList = (item) => {
+    const toggleItemSelection = (itemId) => {
+        if (selectedItems.includes(itemId)) {
+            setSelectedItems(prevSelectedItems => prevSelectedItems.filter(id => id !== itemId));
+        } else {
+            setSelectedItems(prevSelectedItems => [...prevSelectedItems, itemId]);
+        }
+    };
+
+    const addItemToList = () => {
         setLists(prevLists => {
             const newList = prevLists.map(list => {
                 if (list.id === listId) {
+                    const newItems = selectedItems.map(itemId => ({ id: itemId, checked: false }));
                     return {
                         ...list,
-                        items: [...list.items, { id: item.id, checked: false }]
+                        items: [...list.items, ...newItems]
                     };
                 }
                 return list;
             });
             return newList;
         });
-        setModalVisible(false);
-        setSelectedDepartment("All");
+        setSelectedItems([]); // Clear selected items after adding to the list
+        setModalVisible(false); // Close the modal
     };
+    
 
     return (
         <Modal
@@ -84,12 +95,14 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
                         data={itemsNotInList}
                         keyExtractor={item => item.id.toString()}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => addItemToList(item)}>
-                                <Text style={{ fontSize: 24, marginVertical: 6 }}>{item.name}</Text>
+                            <TouchableOpacity onPress={() => toggleItemSelection(item.id)}>
+                                <Text style={{ fontSize: 24, marginVertical: 6, color: selectedItems.includes(item.id) ? 'blue' : 'black' }}>{item.name}</Text>
                             </TouchableOpacity>
                         )}
                     />
-                    <TouchableOpacity onPress={() => { setModalVisible(false); setSelectedDepartment("All") }} style={{ marginTop: 20 }}>
+                    {/* Add Selected Items Button */}
+                    <Button title="Add Selected Items" onPress={addItemToList} disabled={selectedItems.length === 0} />
+                    <TouchableOpacity onPress={() => { setModalVisible(false); setSelectedDepartment("All"); setSelectedItems([]) }} style={{ marginTop: 20 }}>
                         <Text style={{ color: 'blue', fontSize: 16 }}>Cancel</Text>
                     </TouchableOpacity>
                 </View>

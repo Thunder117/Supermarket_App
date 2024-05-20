@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { View, Text, ScrollView, Animated} from "react-native";
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { View, Text, ScrollView, Animated, TextInput, Modal, Button, Pressable } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 import { ItemsContext } from '../StateContext';
 import { FloatingButton, AddItemModal, SearchBar, Items } from "../index";
+import { Feather } from '@expo/vector-icons';
 import styles from "../styles"; 
 
-const ListDetails = () => {
-    const route = useRoute(); 
+const ListDetails = ({ route }) => {
     const navigation = useNavigation();
     const { listId, listName } = route.params;
     const { items, lists, setLists } = useContext(ItemsContext);
     const [searchQuery, setSearchQuery] = useState('');
-    const [isButtonVisible, setIsButtonVisible] = useState(true); // State to control button visibility
-    const [modalVisible, setModalVisible] = useState(false);
+    const [isButtonVisible, setIsButtonVisible] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false); // State for AddItemModal
+    const [changeNameModalVisible, setChangeNameModalVisible] = useState(false); // State for ChangeNameModal
+    const [newListName, setNewListName] = useState(listName);
     const scrollViewRef = useRef(null);
     const buttonOpacity = useRef(new Animated.Value(1)).current;
 
@@ -45,20 +47,35 @@ const ListDetails = () => {
     };
 
     const toggleModal = () => {
-        // Show the modal with the filtered items
         setModalVisible(true);
+    };
+
+    const toggleChangeNameModal = () => {
+        setChangeNameModalVisible(true);
     };
 
     const handleScroll = (event) => {
         const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
         const distanceToEnd = contentSize.height - layoutMeasurement.height - contentOffset.y;
-        // If the distance to the end is less than a threshold (e.g., 10), hide the button
         setIsButtonVisible(distanceToEnd > 10);
     };
 
+
     useEffect(() => {
-        navigation.setOptions({ headerTitle: listName });
-        // Animate button visibility when isButtonVisible changes
+        navigation.setOptions({ 
+            headerTitle: newListName, // Use the newListName state instead of listName
+            headerRight: () => (
+                <Pressable 
+                    onPress={toggleChangeNameModal} 
+                    style={{height:"100%",width:60,alignItems:'center',justifyContent:'center'}}
+                >
+                    <Feather name="edit" size={24} color="black" />
+                </Pressable>
+            ),
+        });
+    }, [navigation, newListName]);    
+
+    useEffect(() => {
         Animated.timing(buttonOpacity, {
             toValue: isButtonVisible ? 1 : 0,
             duration: 200,
@@ -66,28 +83,36 @@ const ListDetails = () => {
         }).start();
     }, [isButtonVisible]);
 
-    // Update button visibility when typing in the search bar
     useEffect(() => {
-        if (searchQuery !== '') {
-            setIsButtonVisible(false);
-        } else {
-            setIsButtonVisible(true);
-        }
+        setIsButtonVisible(searchQuery === '');
     }, [searchQuery]);
 
-    // Group filtered items by department
     const groupedItems = {};
-        const filteredItems = lists[listId].items.filter(item => {
-            const itemName = items[item.id].name.toLowerCase();
-            return itemName.includes(searchQuery.toLowerCase());
-        });
-        filteredItems.forEach(item => {
-            const department = items[item.id].department;
-            if (!groupedItems[department]) {
-                groupedItems[department] = [];
-            }
+    const filteredItems = lists[listId].items.filter(item => {
+        const itemName = items[item.id].name.toLowerCase();
+        return itemName.includes(searchQuery.toLowerCase());
+    });
+    filteredItems.forEach(item => {
+        const department = items[item.id].department;
+        if (!groupedItems[department]) {
+            groupedItems[department] = [];
+        }
         groupedItems[department].push(item);
     });
+
+    // Function to handle list name change
+    const handleListNameChange = (updatedName) => {
+        setLists(prevLists => {
+            return prevLists.map(list => {
+                if (list.id === listId) {
+                    return { ...list, name: updatedName };
+                }
+                return list;
+            });
+        });
+        // Update the state
+        setNewListName(updatedName);
+    };
 
     return (
         <View style={{ flex: 1 }}>
@@ -99,7 +124,6 @@ const ListDetails = () => {
                 scrollEventThrottle={16}
             >
                 <View style={{marginTop:10, marginBottom:80}}>
-                    {/* SearchBar for List Items */}
                     <SearchBar
                         value={searchQuery}
                         onChangeText={setSearchQuery}
@@ -120,14 +144,12 @@ const ListDetails = () => {
                 </View>
             </ScrollView>
 
-            {/* Floating Button To Add Items */}
             <FloatingButton 
                 toggleModal={toggleModal} 
                 buttonOpacity={buttonOpacity} 
-                isVisible={isButtonVisible} // Pass button visibility as a prop
+                isVisible={isButtonVisible}
             />
 
-            {/* Modal for Adding Items */}
             <AddItemModal
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
@@ -135,7 +157,27 @@ const ListDetails = () => {
                 listId={listId}
                 setLists={setLists}
                 lists={lists}
+                handleListNameChange={handleListNameChange}
             />
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={changeNameModalVisible} // Use the state variable for visibility
+                onRequestClose={() => setChangeNameModalVisible(false)}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '90%', height: '40%' }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Change List Name</Text>
+                        <TextInput
+                            value={newListName}
+                            onChangeText={setNewListName}
+                            style={{ borderBottomWidth: 1, borderColor: 'black', marginBottom: 20 }}
+                        />
+                        <Button title="Save" onPress={() => { handleListNameChange(newListName); setChangeNameModalVisible(false); }} />
+                    </View>
+                </View>
+            </Modal>
 
         </View>
     );

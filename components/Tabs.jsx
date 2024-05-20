@@ -45,17 +45,16 @@ const Tabs = () => {
 
 const HomeStackScreen = () => (
 	<HomeStack.Navigator>
-		<HomeStack.Screen name="HomeScreen" component={Home}
-		/>
+		<HomeStack.Screen name="HomeScreen" component={Home}/>
 		<HomeStack.Screen name="HomeDetails" component={Details} />
 	</HomeStack.Navigator>
 );
   
 const ListsStackScreen = () => (
-	<ListsStack.Navigator>
-		<ListsStack.Screen name="ListsScreen" component={Lists} />
-		<ListsStack.Screen name="ListDetails" component={Details} />
-	</ListsStack.Navigator>
+    <ListsStack.Navigator>
+        <ListsStack.Screen name="ListsScreen" component={Lists} />
+        <ListsStack.Screen name="ListDetails" component={Details} />
+    </ListsStack.Navigator>
 );
 
 export default Tabs;
