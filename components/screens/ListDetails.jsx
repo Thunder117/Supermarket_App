@@ -11,7 +11,7 @@ const ListDetails = () => {
     const { listId, listName } = route.params;
     const { items, lists, setLists } = useContext(ItemsContext);
     const [searchQuery, setSearchQuery] = useState('');
-    const [isButtonVisible, setIsButtonVisible] = useState(true);
+    const [isButtonVisible, setIsButtonVisible] = useState(true); // State to control button visibility
     const [modalVisible, setModalVisible] = useState(false);
     const scrollViewRef = useRef(null);
     const buttonOpacity = useRef(new Animated.Value(1)).current;
@@ -66,6 +66,15 @@ const ListDetails = () => {
         }).start();
     }, [isButtonVisible]);
 
+    // Update button visibility when typing in the search bar
+    useEffect(() => {
+        if (searchQuery !== '') {
+            setIsButtonVisible(false);
+        } else {
+            setIsButtonVisible(true);
+        }
+    }, [searchQuery]);
+
     // Group filtered items by department
     const groupedItems = {};
         const filteredItems = lists[listId].items.filter(item => {
@@ -115,6 +124,7 @@ const ListDetails = () => {
             <FloatingButton 
                 toggleModal={toggleModal} 
                 buttonOpacity={buttonOpacity} 
+                isVisible={isButtonVisible} // Pass button visibility as a prop
             />
 
             {/* Modal for Adding Items */}

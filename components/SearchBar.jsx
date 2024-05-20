@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const SearchBar = ({ value, onChangeText }) => {
+const SearchBar = ({ value, onChangeText, onFocus }) => {
     return(
         <View style={{
             backgroundColor: "white",
@@ -20,9 +20,10 @@ const SearchBar = ({ value, onChangeText }) => {
         <TextInput
             placeholder={"Search..."}
             maxLength={20}
-            style={{ fontSize: 20, height: '100%', width: '85%', }}
+            style={{ fontSize: 20, height: '100%', width: '85%' }}
             value={value}
             onChangeText={onChangeText}
+            onFocus={onFocus} // Add onFocus event handler
         />
         <Ionicons name="search" size={32} color="gray" style={{ alignSelf: 'center' }} />
         </View>
