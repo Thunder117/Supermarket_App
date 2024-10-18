@@ -5,7 +5,7 @@ import ItemCard from './ItemCard';
 const Items = ({ department, itemsInDepartment, items, checkItem, deleteItem }) => {
     return (
         <View key={department}>
-            <Text style={{ fontSize: 22, fontWeight: 'bold', marginVertical: 10, marginHorizontal: 20 }}>{department}</Text>
+            <Text style={{ fontSize: 22, marginVertical: 10, marginHorizontal: 20, fontFamily: 'OpenSans-SemiBold' }}>{department}</Text>
             {itemsInDepartment.map(item => (
                 <ItemCard
                     id={item.id}

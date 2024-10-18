@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native";
 
-
 const styles = StyleSheet.create({
-    // Item
     itemContainer: {
         width:'100%', 
         height:70,
@@ -21,6 +19,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:40,
         fontSize:20, 
         fontWeight:'500',
+        fontFamily: 'OpenSans-Regular'
     },
     listContainer: {
         width:'100%', 

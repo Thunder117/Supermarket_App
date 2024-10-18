@@ -114,7 +114,7 @@ const ListDetails = ({ route }) => {
     };
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
 
             <ScrollView
                 ref={scrollViewRef}
