@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import { ItemsContext } from '../StateContext';
 import { FloatingButton, AddItemModal, SearchBar, Items } from "../index";
 import { Feather } from '@expo/vector-icons';
-import styles from "../styles"; 
 
 const ListDetails = ({ route }) => {
     const navigation = useNavigation();
