@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
         fontWeight:'500',
         fontFamily: 'OpenSans-Regular'
     },
+    listText: {
+        paddingHorizontal:40,
+        fontSize:20, 
+        fontFamily: 'OpenSans-SemiBold'
+    },
     listContainer: {
         width:'100%', 
         height:100, 

@@ -23,7 +23,7 @@ const ListCard = (props) => {
                 renderRightActions={rightSwipe}
             >
                 <Pressable style={styles.itemButton} onPress={() => props.navigateToListDetails( props.id, props.name ) }>
-                    <Text style={styles.itemText}>{props.name}</Text>
+                    <Text style={styles.listText}>{props.name}</Text>
                 </Pressable>
             </Swipeable>
 
