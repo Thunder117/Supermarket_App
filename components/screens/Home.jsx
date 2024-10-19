@@ -39,7 +39,7 @@ const Home = () => {
 
     return(
         <ScrollView style={{backgroundColor:'#EFF2F6'}}>
-
+{/*
             <View style={{marginTop:10, marginBottom:10}}>
                 { items.map((item) => {
                     return(
@@ -53,7 +53,7 @@ const Home = () => {
                     );
                 })}
             </View>
-            
+            */}
         </ScrollView>
     );
 }

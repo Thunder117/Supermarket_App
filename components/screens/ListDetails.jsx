@@ -11,8 +11,8 @@ const ListDetails = ({ route }) => {
     const { items, lists, setLists } = useContext(ItemsContext);
     const [searchQuery, setSearchQuery] = useState('');
     const [isButtonVisible, setIsButtonVisible] = useState(true);
-    const [modalVisible, setModalVisible] = useState(false); // State for AddItemModal
-    const [changeNameModalVisible, setChangeNameModalVisible] = useState(false); // State for ChangeNameModal
+    const [modalVisible, setModalVisible] = useState(false); 
+    const [changeNameModalVisible, setChangeNameModalVisible] = useState(false); 
     const [newListName, setNewListName] = useState(listName);
     const scrollViewRef = useRef(null);
     const buttonOpacity = useRef(new Animated.Value(1)).current;
@@ -118,7 +118,7 @@ const ListDetails = ({ route }) => {
 
             <ScrollView
                 ref={scrollViewRef}
-                style={{backgroundColor:'#EFF2F6'}}
+                style={{backgroundColor:'white'}}
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
             >

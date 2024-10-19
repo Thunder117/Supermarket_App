@@ -7,9 +7,9 @@ const FloatingButton = ({ toggleModal, buttonOpacity }) => {
     const buttonStyle = [
         {
             position: 'absolute',
-            bottom: 20,
+            bottom: 80,
             right: 20,
-            backgroundColor: 'green',
+            backgroundColor: '#3498db',
             width: 60,
             height: 60,
             borderRadius: 30,

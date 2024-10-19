@@ -6,206 +6,206 @@ export const StateProvider = ({ children }) => {
     const [items, setItems] = useState([
 		{
 			id: 0,
-			name: "🍌 Banana",
+			name: "Banana",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 1,
-			name: "🍎 Apple",
+			name: "Apple",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 2,
-			name: "🥒 Cucumber",
+			name: "Cucumber",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 3,
-			name: "🫐 Blueberry",
+			name: "Blueberry",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 4,
-			name: "🥔 Potato",
+			name: "Potato",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 5,
-			name: "🍓 Strawberry",
+			name: "Strawberry",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 6,
-			name: "🍍 Pineapple",
+			name: "Pineapple",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 7,
-			name: "🍊 Orange",
+			name: "Orange",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 8,
-			name: "🥝 Kiwi",
+			name: "Kiwi",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 9,
-			name: "🍋 Lemon",
+			name: "Lemon",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 10,
-			name: "🍅 Tomato",
+			name: "Tomato",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 11,
-			name: "🥑 Avocado",
+			name: "Avocado",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 12,
-			name: "🥬 Lettuce",
+			name: "Lettuce",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 13,
-			name: "🥥 Coconut",
+			name: "Coconut",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 14,
-			name: "🍈 Honeydew",
+			name: "Honeydew",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 15,
-			name: "🍉 Watermelon",
+			name: "Watermelon",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 16,
-			name: "🥭 Mango",
+			name: "Mango",
 			department: "Produce",
 			slider: false
 		},
 
 		{
 			id: 17,
-			name: "🍒 Cherry",
+			name: "Cherry",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 18,
-			name: "🍑 Peach",
+			name: "Peach",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 19,
-			name: "🍐 Pear",
+			name: "Pear",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 20,
-			name: "🍏 Green Apple",
+			name: "Green Apple",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 21,
-			name: "🌽 Corn",
+			name: "Corn",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 22,
-			name: "🌶️ Jalapeño",
+			name: "Jalapeño",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 23,
-			name: "🫑 Green Pepper",
+			name: "Green Pepper",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 24,
-			name: "🍄 Mushroom",
+			name: "Mushroom",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 25,
-			name: "🥦 Broccoli",
+			name: "Broccoli",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 26,
-			name: "🥕 Carrot",
+			name: "Carrot",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 27,
-			name: "🧅 Onion",
+			name: "Onion",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 28,
-			name: "🧄 Garlic",
+			name: "Garlic",
 			department: "Produce",
 			slider: false
 		},
 		{
 			id: 29,
-			name: "🧀 Mozzarella Cheese",
+			name: "Mozzarella Cheese",
 			department: "Dairy",
 			slider: false
 		},
 		{
 			id: 30,
-			name: "🥛 Milk",
+			name: "Milk",
 			department: "Dairy",
 			slider: false
 		},
 		{
 			id: 31,
-			name: "🍨 Ice Cream",
+			name: "Ice Cream",
 			department: "Dairy",
 			slider: false
 		},
 		{
 			id: 32,
-			name: "🥚 Egg",
+			name: "Egg",
 			department: "Dairy",
 			slider: false
 		},
 		{
 			id: 33,
-			name: "🧈 Butter",
+			name: "Butter",
 			department: "Dairy",
 			slider: false
 		},

@@ -18,13 +18,27 @@ const styles = StyleSheet.create({
     itemText: {
         paddingHorizontal:40,
         fontSize:20, 
-        fontWeight:'500',
         fontFamily: 'OpenSans-Regular'
+    },
+    itemTextCrossed: {
+        paddingHorizontal:40,
+        fontSize:20, 
+        fontFamily: 'OpenSans-Regular',
+        textDecorationLine: 'line-through',
+        color: 'gray'
+    },
+    departmentText: {
+        fontSize: 24, 
+        marginVertical: 10, 
+        marginHorizontal: 20, 
+        fontFamily: 'OpenSans-SemiBold',
+        color: 'gray',
+        textTransform: 'uppercase'
     },
     listText: {
         paddingHorizontal:40,
         fontSize:20, 
-        fontFamily: 'OpenSans-SemiBold'
+        fontFamily: 'OpenSans-Regular'
     },
     listContainer: {
         width:'100%', 
@@ -40,6 +54,11 @@ const styles = StyleSheet.create({
         justifyContent:'center', 
         height:'100%', 
         backgroundColor:'#f93737'
+    },
+    divider: {
+        height: 1, // Height of the divider line
+        backgroundColor: '#eaecee', // Color of the divider line
+        width:'85%'
     }
 });
 

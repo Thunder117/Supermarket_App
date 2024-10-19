@@ -20,7 +20,7 @@ const SearchBar = ({ value, onChangeText, onFocus }) => {
         <TextInput
             placeholder={"Search..."}
             maxLength={20}
-            style={{ fontSize: 20, height: '100%', width: '85%' }}
+            style={{ fontSize: 20, height: '100%', width: '85%', fontFamily: 'OpenSans-Regular' }}
             value={value}
             onChangeText={onChangeText}
             onFocus={onFocus} // Add onFocus event handler
