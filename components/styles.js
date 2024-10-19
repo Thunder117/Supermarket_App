@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     itemContainer: {
         width:'100%', 
-        height:70,
+        height:60,
         flexDirection:"row",
     },
     itemButton: {
@@ -17,12 +17,12 @@ const styles = StyleSheet.create({
     },
     itemText: {
         paddingHorizontal:40,
-        fontSize:20, 
+        fontSize: 18, 
         fontFamily: 'OpenSans-Regular'
     },
     itemTextCrossed: {
         paddingHorizontal:40,
-        fontSize:20, 
+        fontSize: 18,
         fontFamily: 'OpenSans-Regular',
         textDecorationLine: 'line-through',
         color: 'gray'
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         width:'100%', 
-        height:100, 
+        height:90, 
         marginTop:4,
         marginBottom:4,
         paddingTop: 2,

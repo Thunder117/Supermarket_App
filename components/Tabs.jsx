@@ -82,7 +82,7 @@ const ListsStackScreen = () => (
         <ListsStack.Screen 
             name="ListsScreen" 
             component={Lists} 
-            options={{ title: 'My Lists' }} // Set your custom title here
+            options={{ title: 'Shopping lists' }} // Set your custom title here
         />
         <ListsStack.Screen 
             name="ListDetails" 

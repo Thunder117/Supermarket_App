@@ -59,10 +59,9 @@ const ListDetails = ({ route }) => {
         setIsButtonVisible(distanceToEnd > 10);
     };
 
-
     useEffect(() => {
         navigation.setOptions({ 
-            headerTitle: newListName, // Use the newListName state instead of listName
+            headerTitle: newListName, 
             headerRight: () => (
                 <Pressable 
                     onPress={toggleChangeNameModal} 

@@ -17,7 +17,6 @@ const Items = ({ department, itemsInDepartment, items, checkItem, deleteItem }) 
                         checkItem={checkItem}
                         deleteItem={deleteItem}
                     />
-                    {/* Add a divider line only if it's not the last item */}
                     {index < itemsInDepartment.length - 1 && 
                     <View style={{alignItems:'center'}}>
                         <View style={styles.divider} />
