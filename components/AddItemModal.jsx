@@ -7,13 +7,18 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
     const [itemsNotInList, setItemsNotInList] = useState([]); // Initialize with an empty array
     const [selectedItems, setSelectedItems] = useState([]); // State to keep track of selected items
 
+    // Find the list by its id
+    const currentList = lists.find(list => list.id === listId);
+
     useEffect(() => {
-        // Filter items that are not already in the list
-        const itemsNotInListFiltered = items.filter(item => {
-            return !lists[listId].items.some(listItem => listItem.id === item.id);
-        });
-        setItemsNotInList(itemsNotInListFiltered);
-    }, [modalVisible, items, lists, listId]);
+        if (currentList) {
+            // Filter items that are not already in the list
+            const itemsNotInListFiltered = items.filter(item => {
+                return !currentList.items.some(listItem => listItem.id === item.id);
+            });
+            setItemsNotInList(itemsNotInListFiltered);
+        }
+    }, [modalVisible, items, lists, listId, currentList]);
 
     const handleDepartmentSelection = (department) => {
         let filteredItems = items;
@@ -23,12 +28,14 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
             filteredItems = items.filter(item => item.department === department);
         }
 
-        // Filter out items that are already in the list
-        const itemsNotInListFiltered = filteredItems.filter(item => {
-            return !lists[listId].items.some(listItem => listItem.id === item.id);
-        });
+        if (currentList) {
+            // Filter out items that are already in the list
+            const itemsNotInListFiltered = filteredItems.filter(item => {
+                return !currentList.items.some(listItem => listItem.id === item.id);
+            });
+            setItemsNotInList(itemsNotInListFiltered);
+        }
 
-        setItemsNotInList(itemsNotInListFiltered);
         setSelectedDepartment(department);
     };
 
@@ -57,7 +64,6 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
         setSelectedItems([]); // Clear selected items after adding to the list
         setModalVisible(false); // Close the modal
     };
-    
 
     return (
         <Modal
@@ -102,7 +108,7 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
                     />
                     {/* Add Selected Items Button */}
                     <Button title="Add Selected Items" onPress={addItemToList} disabled={selectedItems.length === 0} />
-                    <TouchableOpacity onPress={() => { setModalVisible(false); setSelectedDepartment("All"); setSelectedItems([]) }} style={{ marginTop: 20 }}>
+                    <TouchableOpacity onPress={() => { setModalVisible(false); setSelectedDepartment("All"); setSelectedItems([]); }} style={{ marginTop: 20 }}>
                         <Text style={{ color: 'blue', fontSize: 16 }}>Cancel</Text>
                     </TouchableOpacity>
                 </View>

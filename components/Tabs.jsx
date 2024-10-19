@@ -58,9 +58,9 @@ const HomeStackScreen = () => (
     <HomeStack.Navigator 
         screenOptions={{
             headerTitleStyle: {
-                fontFamily: 'OpenSans-SemiBold', // Change to your desired font
-                fontSize: 24, // Adjust font size as needed
-                color: '#000', // Change color if necessary
+                fontFamily: 'OpenSans-SemiBold', 
+                fontSize: 24, 
+                color: '#000', 
             },
         }}
     >
@@ -73,16 +73,16 @@ const ListsStackScreen = () => (
     <ListsStack.Navigator 
         screenOptions={{
             headerTitleStyle: {
-                fontFamily: 'OpenSans-SemiBold', // Change to your desired font
-                fontSize: 24, // Adjust font size as needed
-                color: '#000', // Change color if necessary
+                fontFamily: 'OpenSans-SemiBold', 
+                fontSize: 24, 
+                color: '#000', 
             },
         }}
     >
         <ListsStack.Screen 
             name="ListsScreen" 
             component={Lists} 
-            options={{ title: 'Shopping lists' }} // Set your custom title here
+            options={{ title: 'Shopping lists' }} 
         />
         <ListsStack.Screen 
             name="ListDetails" 

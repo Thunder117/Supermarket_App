@@ -42,11 +42,7 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         width:'100%', 
-        height:90, 
-        marginTop:4,
-        marginBottom:4,
-        paddingTop: 2,
-        paddingBottom: 2
+        height:90
     },
     rightSwipe:{
         width:'20%', 

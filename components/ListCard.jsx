@@ -9,7 +9,7 @@ const ListCard = (props) => {
         return (
             <Pressable 
                 style={styles.rightSwipe} 
-                onPress={() => props.deleteList(props.id)} // Call deleteList here
+                onPress={() => props.deleteList(props.id)}
             >
                 <Feather name="trash-2" size={32} color="white" />
             </Pressable>

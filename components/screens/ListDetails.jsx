@@ -17,6 +17,10 @@ const ListDetails = ({ route }) => {
     const scrollViewRef = useRef(null);
     const buttonOpacity = useRef(new Animated.Value(1)).current;
 
+    const DEPARTMENT_ORDER = ["Produce", "Dairy", "Bakery", "Grocery", "Deli", "Frozen", "Meat and Seafood"];
+
+    const currentList = lists.find(list => list.id === listId);
+
     const checkItem = (itemId) => {
         setLists(prevLists => {
             return prevLists.map(list => {
@@ -86,19 +90,14 @@ const ListDetails = ({ route }) => {
     }, [searchQuery]);
 
     const groupedItems = {};
-    const filteredItems = lists[listId].items.filter(item => {
-        const itemName = items[item.id].name.toLowerCase();
-        return itemName.includes(searchQuery.toLowerCase());
-    });
-    filteredItems.forEach(item => {
-        const department = items[item.id].department;
-        if (!groupedItems[department]) {
-            groupedItems[department] = [];
-        }
-        groupedItems[department].push(item);
+    DEPARTMENT_ORDER.forEach(department => {
+        // Filter items in the department based on search query
+        groupedItems[department] = currentList.items.filter(item => {
+            const itemName = items[item.id].name.toLowerCase();
+            return items[item.id].department === department && itemName.includes(searchQuery.toLowerCase());
+        });
     });
 
-    // Function to handle list name change
     const handleListNameChange = (updatedName) => {
         setLists(prevLists => {
             return prevLists.map(list => {
@@ -108,13 +107,11 @@ const ListDetails = ({ route }) => {
                 return list;
             });
         });
-        // Update the state
         setNewListName(updatedName);
     };
 
     return (
         <View style={{flex: 1}}>
-
             <ScrollView
                 ref={scrollViewRef}
                 style={{backgroundColor:'white'}}
@@ -128,16 +125,20 @@ const ListDetails = ({ route }) => {
                     />
                     
                     <View style={{marginVertical:10}}>
-                        {Object.entries(groupedItems).map(([department, itemsInDepartment]) => (
-                            <Items
-                                key={department}
-                                department={department}
-                                itemsInDepartment={itemsInDepartment}
-                                items={items}
-                                checkItem={checkItem}
-                                deleteItem={deleteItem}
-                            />
-                        ))}
+                        {DEPARTMENT_ORDER.map(department => {
+                            const itemsInDepartment = groupedItems[department];
+                            if (itemsInDepartment.length === 0) return null; // Skip empty departments
+                            return (
+                                <Items
+                                    key={department}
+                                    department={department}
+                                    itemsInDepartment={itemsInDepartment}
+                                    items={items}
+                                    checkItem={checkItem}
+                                    deleteItem={deleteItem}
+                                />
+                            );
+                        })}
                     </View>
                 </View>
             </ScrollView>
@@ -161,7 +162,7 @@ const ListDetails = ({ route }) => {
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={changeNameModalVisible} // Use the state variable for visibility
+                visible={changeNameModalVisible}
                 onRequestClose={() => setChangeNameModalVisible(false)}
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
@@ -176,9 +177,8 @@ const ListDetails = ({ route }) => {
                     </View>
                 </View>
             </Modal>
-
         </View>
     );
-}
+};
 
 export default ListDetails;
