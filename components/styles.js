@@ -55,6 +55,21 @@ const styles = StyleSheet.create({
         height: 1, // Height of the divider line
         backgroundColor: '#eaecee', // Color of the divider line
         width:'85%'
+    },
+    searchBar: {
+        backgroundColor: "white",
+        width: "90%",
+        height: 60,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        borderRadius: 50,
+        paddingLeft: 30,
+        paddingRight: 10,
+        marginTop: 10,
+        marginBottom: 10,
+        flexDirection: "row",
+        borderWidth: 1,
+        borderColor: '#eaecee'
     }
 });
 

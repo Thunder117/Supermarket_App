@@ -4,6 +4,7 @@ import FloatingButton from "./FloatingButton";
 import AddItemModal from "./AddItemModal";
 import SearchBar from "./SearchBar";
 import Items from "./Items";
+import AddListModal from "./AddListModal";
 
 export {
     ItemCard,
@@ -11,5 +12,6 @@ export {
     FloatingButton,
     AddItemModal,
     SearchBar,
-    Items
+    Items,
+    AddListModal
 };

@@ -65,7 +65,7 @@ const ListDetails = ({ route }) => {
 
     useEffect(() => {
         navigation.setOptions({ 
-            headerTitle: newListName, 
+            headerTitle: newListName,
             headerRight: () => (
                 <Pressable 
                     onPress={toggleChangeNameModal} 
