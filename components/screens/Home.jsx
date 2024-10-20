@@ -6,8 +6,6 @@ import { Items, SearchBar } from "../index";
 const Home = () => {
     const { items, setItems, lists, setLists } = useContext(ItemsContext);  // Also getting lists and setLists to update the lists
     const [searchQuery, setSearchQuery] = useState('');
-
-    // Define departments in a specific order, if needed
     const DEPARTMENT_ORDER = ["Produce", "Dairy", "Bakery", "Grocery", "Deli", "Frozen", "Meat and Seafood"];
 
     // Group items by department

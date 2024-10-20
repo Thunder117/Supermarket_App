@@ -21,7 +21,7 @@ const Tabs = () => {
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;
 
-                        if (route.name === 'Home') {
+                        if (route.name === 'Items') {
                             iconName = focused ? 'home' : 'home-outline';
                         } else if (route.name === 'Lists') {
                             iconName = focused ? 'list' : 'list-outline';
@@ -47,7 +47,7 @@ const Tabs = () => {
                     },
                 })}
             >
-                <Tab.Screen name="Home" component={HomeStackScreen} />
+                <Tab.Screen name="Items" component={HomeStackScreen} />
                 <Tab.Screen name="Lists" component={ListsStackScreen} />
             </Tab.Navigator>
         </StateProvider>
@@ -64,7 +64,11 @@ const HomeStackScreen = () => (
             },
         }}
     >
-        <HomeStack.Screen name="HomeScreen" component={Home} />
+        <HomeStack.Screen 
+            name="HomeScreen" 
+            component={Home} 
+            options={{ title: 'All items' }} 
+        />
         <HomeStack.Screen name="HomeDetails" component={ListDetails} />
     </HomeStack.Navigator>
 );
