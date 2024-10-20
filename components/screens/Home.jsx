@@ -47,13 +47,12 @@ const Home = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <SearchBar
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-            />
-
             <ScrollView ref={scrollViewRef} onScroll={handleScroll}>
                 <View style={{ marginTop: 20, marginBottom: 80 }}>
+                    <SearchBar
+                        value={searchQuery}
+                        onChangeText={setSearchQuery}
+                    />
                     {DEPARTMENT_ORDER.map(department => {
                         const itemsInDepartment = groupedItems[department];
                         if (itemsInDepartment.length === 0) return null;

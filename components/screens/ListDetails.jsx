@@ -121,7 +121,7 @@ const ListDetails = ({ route }) => {
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
             >
-                <View style={{ marginTop: 10, marginBottom: 80 }}>
+                <View style={{ marginTop: 20, marginBottom: 80 }}>
                     <SearchBar
                         value={searchQuery}
                         onChangeText={setSearchQuery}
