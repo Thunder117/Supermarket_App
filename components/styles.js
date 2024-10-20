@@ -70,6 +70,42 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderWidth: 1,
         borderColor: '#eaecee'
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    modalContent: {
+        width: '90%',
+        height: '80%',
+        padding: 20,
+        backgroundColor: 'white',
+        borderRadius: 30
+    },
+    modalContentSmall: {
+        width: '80%',
+        padding: 20,
+        backgroundColor: 'white',
+        borderRadius: 30
+    },
+    modalTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        textAlign: 'center',
+    },
+    modalInput: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 10,
+        marginBottom: 20,
+        borderRadius: 5,
+    },
+    modalButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     }
 });
 

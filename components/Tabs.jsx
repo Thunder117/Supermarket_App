@@ -36,8 +36,8 @@ const Tabs = () => {
                         backgroundColor: '#3498db', // Blue background for the tab bar
                         borderTopWidth: 0, // Remove top border
                         height: 60, // Increase the height of the tab bar (optional)
-                        borderTopLeftRadius: 30, // Rounded corners
-                        borderTopRightRadius: 30, // Rounded corners
+                        borderTopLeftRadius: 40, // Rounded corners
+                        borderTopRightRadius: 40, // Rounded corners
                         overflow: 'hidden', // Ensures the corners are visible
                         position: 'absolute', // To adjust position
                         bottom: 0,

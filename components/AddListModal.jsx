@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Modal, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, Modal, TextInput, Button } from 'react-native';
+import styles from './styles';
 
 const AddListModal = ({ modalVisible, setModalVisible, onCreateList }) => {
     const [listName, setListName] = useState('');
@@ -19,15 +20,15 @@ const AddListModal = ({ modalVisible, setModalVisible, onCreateList }) => {
             onRequestClose={() => setModalVisible(false)}
         >
             <View style={styles.modalContainer}>
-                <View style={styles.modalContent}>
+                <View style={styles.modalContentSmall}>
                     <Text style={styles.modalTitle}>Create a New List</Text>
                     <TextInput
-                        style={styles.input}
+                        style={styles.modalInput}
                         placeholder="Enter list name"
                         value={listName}
                         onChangeText={setListName}
                     />
-                    <View style={styles.buttonContainer}>
+                    <View style={styles.modalButtonContainer}>
                         <Button title="Cancel" onPress={() => setModalVisible(false)} />
                         <Button title="Create" onPress={handleCreateList} />
                     </View>
@@ -36,37 +37,5 @@ const AddListModal = ({ modalVisible, setModalVisible, onCreateList }) => {
         </Modal>
     );
 };
-
-const styles = StyleSheet.create({
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    modalContent: {
-        width: '80%',
-        padding: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
-    },
-    modalTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: 10,
-        marginBottom: 20,
-        borderRadius: 5,
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-});
 
 export default AddListModal;

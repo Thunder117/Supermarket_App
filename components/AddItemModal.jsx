@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, ScrollView, FlatList, Modal, Button } from "react-native";
+import styles from "./styles";
 
 const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, lists }) => {
     const departmentNames = ["All", "Produce", "Dairy", "Bakery", "Grocery", "Deli", "Frozen", "Meat and Seafood"];
@@ -72,9 +73,9 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
             visible={modalVisible}
             onRequestClose={() => setModalVisible(false)}
         >
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-                <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '90%', height: '80%' }}>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Add Item</Text>
+            <View style={styles.modalContainer}>
+                <View style={styles.modalContent}>
+                    <Text style={ styles.modalTitle }>Add item</Text>
                     {/* Department Buttons */}
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginBottom: 10, minHeight: 30 }}>
                         {departmentNames.map(department => (
@@ -82,17 +83,16 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
                                 key={department}
                                 onPress={() => handleDepartmentSelection(department)}
                                 style={{
-                                    backgroundColor: '#e0e0e0',
                                     paddingVertical: 4,
                                     paddingHorizontal: 12,
-                                    borderRadius: 5,
+                                    borderRadius: 15,
                                     marginRight: 10,
                                     maxHeight: 30,
-                                    borderColor: selectedDepartment === department ? 'green' : '#e0e0e0',
-                                    borderWidth: selectedDepartment === department ? 2 : 0,
+                                    justifyContent: 'center',
+                                    backgroundColor: selectedDepartment === department ? '#2874a6' : '#3498db'
                                 }}
                             >
-                                <Text>{department}</Text>
+                                <Text style={{color: 'white'}}>{department}</Text>
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
@@ -107,8 +107,16 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
                         )}
                     />
                     {/* Add Selected Items Button */}
-                    <Button title="Add Selected Items" onPress={addItemToList} disabled={selectedItems.length === 0} />
-                    <TouchableOpacity onPress={() => { setModalVisible(false); setSelectedDepartment("All"); setSelectedItems([]); }} style={{ marginTop: 20 }}>
+                    <Button 
+                        title="Add Selected Items" 
+                        onPress={addItemToList} 
+                        disabled={selectedItems.length === 0} 
+                        style={{ borderRadius: 45 }}
+                    />
+                    <TouchableOpacity 
+                        onPress={() => { setModalVisible(false); setSelectedDepartment("All"); setSelectedItems([]); }} 
+                        style={{ marginTop: 20 }}
+                    >
                         <Text style={{ color: 'blue', fontSize: 16 }}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
