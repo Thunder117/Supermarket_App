@@ -100,10 +100,6 @@ const ListDetails = ({ route }) => {
     
         setGroupedItems(newGroupedItems);
     }, [lists, listId, searchQuery, items]); // Include relevant dependencies
-    
-    useEffect(() => {
-        console.log('Updated lists:', lists); // Check if lists update after adding items
-    }, [lists]);
 
     const handleListNameChange = (updatedName) => {
         setLists(prevLists => {
