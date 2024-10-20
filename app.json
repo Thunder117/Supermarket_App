@@ -1,5 +1,10 @@
 {
   "expo": {
+    "splash": {
+      "image": "./assets/splash.jpg",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "scheme": "acme",
     "web": {
       "bundler": "metro"
@@ -9,6 +14,14 @@
       "expo-font"
     ],
     "name": "Supermarket_App",
-    "slug": "Supermarket_App"
+    "slug": "Supermarket_App",
+    "extra": {
+      "eas": {
+        "projectId": "f410c0b4-b14b-44cb-826e-b6b946c86187"
+      }
+    },
+    "android": {
+      "package": "com.thunderbow117.Supermarket_App"
+    }
   }
 }
