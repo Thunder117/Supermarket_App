@@ -26,8 +26,9 @@ const ItemCard = (props) => {
             >  
                 <Pressable 
                     style={styles.itemButton} 
-                    onPress={() => props.checkItem(props.id, props.department)} // Pass department with item ID
+                    onPress={() => {props.checkItem != null && props.checkItem(props.id, props.department)}} // Pass department with item ID
                 >
+                {props.checked != null &&
                     <View style={{height:'100%', width:'20%', alignItems:'center', justifyContent:'center'}}>
                     { props.checked 
                     ? 
@@ -36,6 +37,7 @@ const ItemCard = (props) => {
                         <MaterialIcons name="radio-button-unchecked" size={28} color="black" />
                     }
                     </View>
+                }
                     <View style={{width:'80%', height:'100%', justifyContent:'center'}}>
                     { props.checked
                     ?

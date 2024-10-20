@@ -1,60 +1,65 @@
-import { useContext  } from "react";
+import { useContext, useState } from "react";
 import { View, ScrollView } from "react-native";
-import { ItemCard } from "../index";
 import { ItemsContext } from '../StateContext';
+import { Items, SearchBar } from "../index";
 
 const Home = () => {
-    const { items, setItems } = useContext(ItemsContext)
+    const { items, setItems, lists, setLists } = useContext(ItemsContext);  // Also getting lists and setLists to update the lists
+    const [searchQuery, setSearchQuery] = useState('');
 
-    // Returns the index of an item by their Id
-    const findItemById = (itemId) => { // TODO: this can be improved using map((c, i))
-        let index = 0;
-        let counter = 0;
-        items.forEach(currentItem => {
-            if(currentItem.id == itemId) {
-                index = counter;
-                return index;
-            }
-            counter++;
-        });
-        return index;
-    };
+    // Define departments in a specific order, if needed
+    const DEPARTMENT_ORDER = ["Produce", "Dairy", "Bakery", "Grocery", "Deli", "Frozen", "Meat and Seafood"];
 
-    // Toggles the slider value of the item
-    const toggleSliderValue = (itemId) => {
-        let itemIndex = findItemById(itemId);
-        let newItems = items.map((item, index) => {
-            if(index == itemIndex) {
-                return {...item, slider: !item.slider};
-            };
-            return item
+    // Group items by department
+    const groupedItems = {};
+    DEPARTMENT_ORDER.forEach(department => {
+        groupedItems[department] = items.filter(item => {
+            const itemName = item.name.toLowerCase();
+            return item.department === department && itemName.includes(searchQuery.toLowerCase());
         });
+    });
+
+    // Function to delete item
+    const deleteItem = (itemIdToDelete) => {
+        // Step 1: Remove item from items context
+        const newItems = items.filter(item => item.id !== itemIdToDelete);
         setItems(newItems);
+
+        // Step 2: Remove item from any list that contains it
+        const updatedLists = lists.map(list => {
+            const updatedItems = list.items.filter(item => item.id !== itemIdToDelete);
+            return { ...list, items: updatedItems };
+        });
+        setLists(updatedLists);
     };
 
-    // Called when an item is swiped
-    const sliderOpened = (itemId) => {
-        toggleSliderValue(itemId);
-    };
+    return (
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+            {/* Search Bar to filter items */}
+            <SearchBar
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+            />
 
-    return(
-        <ScrollView style={{backgroundColor:'#EFF2F6'}}>
-{/*
-            <View style={{marginTop:10, marginBottom:10}}>
-                { items.map((item) => {
-                    return(
-                        <ItemCard 
-                            id={item.id}
-                            name={item.name} 
-                            department={item.department}
-                            sliderOpened={sliderOpened} 
-                            key={item.id}
-                        />
-                    );
-                })}
-            </View>
-            */}
-        </ScrollView>
+            <ScrollView>
+                <View style={{ marginTop: 10, marginBottom: 10 }}>
+                    {DEPARTMENT_ORDER.map(department => {
+                        const itemsInDepartment = groupedItems[department];
+                        if (itemsInDepartment.length === 0) return null;
+
+                        return (
+                            <Items
+                                key={department}
+                                department={department}
+                                itemsInDepartment={itemsInDepartment}
+                                items={items}  // Pass the full items array for lookups
+                                deleteItem={deleteItem}  // Pass deleteItem function to Items component
+                            />
+                        );
+                    })}
+                </View>
+            </ScrollView>
+        </View>
     );
 }
 

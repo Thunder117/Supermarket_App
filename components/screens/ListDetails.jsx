@@ -91,12 +91,15 @@ const ListDetails = ({ route }) => {
 
     const groupedItems = {};
     DEPARTMENT_ORDER.forEach(department => {
-        // Filter items in the department based on search query
         groupedItems[department] = currentList.items.filter(item => {
-            const itemName = items[item.id].name.toLowerCase();
-            return items[item.id].department === department && itemName.includes(searchQuery.toLowerCase());
+            const itemData = items[item.id]; // Access the item data safely
+            if (!itemData) return false; // Skip if item doesn't exist
+
+            const itemName = itemData.name.toLowerCase();
+            return itemData.department === department && itemName.includes(searchQuery.toLowerCase());
         });
     });
+
 
     const handleListNameChange = (updatedName) => {
         setLists(prevLists => {
@@ -127,7 +130,7 @@ const ListDetails = ({ route }) => {
                     <View style={{marginVertical:10}}>
                         {DEPARTMENT_ORDER.map(department => {
                             const itemsInDepartment = groupedItems[department];
-                            if (itemsInDepartment.length === 0) return null; // Skip empty departments
+                            if (itemsInDepartment.length === 0) return null; 
                             return (
                                 <Items
                                     key={department}

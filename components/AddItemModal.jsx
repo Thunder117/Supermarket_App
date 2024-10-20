@@ -52,7 +52,11 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
         setLists(prevLists => {
             const newList = prevLists.map(list => {
                 if (list.id === listId) {
-                    const newItems = selectedItems.map(itemId => ({ id: itemId, checked: false }));
+                    // Use the itemId to get the item's name from the items array
+                    const newItems = selectedItems.map(itemId => {
+                        const item = items.find(item => item.id === itemId);
+                        return { id: itemId, name: item.name, checked: false }; 
+                    });
                     return {
                         ...list,
                         items: [...list.items, ...newItems]
@@ -64,7 +68,7 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
         });
         setSelectedItems([]); // Clear selected items after adding to the list
         setModalVisible(false); // Close the modal
-    };
+    };    
 
     return (
         <Modal
