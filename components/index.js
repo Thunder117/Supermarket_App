@@ -5,6 +5,7 @@ import AddItemModal from "./AddItemModal";
 import SearchBar from "./SearchBar";
 import Items from "./Items";
 import AddListModal from "./AddListModal";
+import CreateItemModal from "./CreateItemModal";
 
 export {
     ItemCard,
@@ -13,5 +14,6 @@ export {
     AddItemModal,
     SearchBar,
     Items,
-    AddListModal
+    AddListModal,
+    CreateItemModal
 };

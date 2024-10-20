@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView, FlatList, Modal, Button } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, FlatList, Modal } from "react-native";
 import styles from "./styles";
 
 const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, lists }) => {
@@ -13,13 +13,12 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
 
     useEffect(() => {
         if (currentList) {
-            // Filter items that are not already in the list
             const itemsNotInListFiltered = items.filter(item => {
                 return !currentList.items.some(listItem => listItem.id === item.id);
             });
             setItemsNotInList(itemsNotInListFiltered);
         }
-    }, [modalVisible, items, lists, listId, currentList]);
+    }, [modalVisible, items, lists, listId, currentList]);    
 
     const handleDepartmentSelection = (department) => {
         let filteredItems = items;

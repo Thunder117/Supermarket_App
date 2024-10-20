@@ -11,11 +11,11 @@ const Items = ({ department, itemsInDepartment, checkItem, deleteItem }) => {
                 <React.Fragment key={item.id}>
                     <ItemCard
                         id={item.id}
-                        name={item.name }  // Directly access item.name
+                        name={item.name }  
                         department={department}
                         checked={item.checked}
                         checkItem={checkItem}
-                        deleteItem={deleteItem}  // Pass the deleteItem function to ItemCard
+                        deleteItem={deleteItem}  
                     />
                     {index < itemsInDepartment.length - 1 && 
                         <View style={{ alignItems: 'center' }}>

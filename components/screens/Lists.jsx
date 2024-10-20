@@ -46,7 +46,7 @@ const Lists = () => {
     return (
         <View style={{flex: 1}}>
             <ScrollView style={{backgroundColor: 'white'}} ref={scrollViewRef} onScroll={handleScroll}>
-                <View style={{marginTop: 20, marginBottom: 100, height: '100%'}}>
+                <View style={{marginTop: 20, marginBottom: 100}}>
                 {lists.map((list) => (
                     <ListCard 
                         id={list.id}

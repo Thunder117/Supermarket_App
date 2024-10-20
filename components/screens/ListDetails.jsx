@@ -16,10 +16,8 @@ const ListDetails = ({ route }) => {
     const [newListName, setNewListName] = useState(listName);
     const scrollViewRef = useRef(null);
     const buttonOpacity = useRef(new Animated.Value(1)).current;
-
+    const [groupedItems, setGroupedItems] = useState({}); 
     const DEPARTMENT_ORDER = ["Produce", "Dairy", "Bakery", "Grocery", "Deli", "Frozen", "Meat and Seafood"];
-
-    const currentList = lists.find(list => list.id === listId);
 
     const checkItem = (itemId) => {
         setLists(prevLists => {
@@ -69,7 +67,7 @@ const ListDetails = ({ route }) => {
             headerRight: () => (
                 <Pressable 
                     onPress={toggleChangeNameModal} 
-                    style={{height:"100%",width:60,alignItems:'center',justifyContent:'center'}}
+                    style={{ height: "100%", width: 60, alignItems: 'center', justifyContent: 'center' }}
                 >
                     <Feather name="edit" size={24} color="black" />
                 </Pressable>
@@ -86,20 +84,26 @@ const ListDetails = ({ route }) => {
     }, [isButtonVisible]);
 
     useEffect(() => {
-        setIsButtonVisible(searchQuery === '');
-    }, [searchQuery]);
-
-    const groupedItems = {};
-    DEPARTMENT_ORDER.forEach(department => {
-        groupedItems[department] = currentList.items.filter(item => {
-            const itemData = items[item.id]; // Access the item data safely
-            if (!itemData) return false; // Skip if item doesn't exist
-
-            const itemName = itemData.name.toLowerCase();
-            return itemData.department === department && itemName.includes(searchQuery.toLowerCase());
+        const newGroupedItems = {};
+        const currentList = lists.find(list => list.id === listId); 
+        if (!currentList) return; // Early exit if no current list
+    
+        DEPARTMENT_ORDER.forEach(department => {
+            newGroupedItems[department] = currentList.items.filter(item => {
+                const itemData = items.find(i => i.id === item.id); // Ensure correct item lookup
+                if (!itemData) return false;
+    
+                const itemName = itemData.name.toLowerCase();
+                return itemData.department === department && itemName.includes(searchQuery.toLowerCase());
+            });
         });
-    });
-
+    
+        setGroupedItems(newGroupedItems);
+    }, [lists, listId, searchQuery, items]); // Include relevant dependencies
+    
+    useEffect(() => {
+        console.log('Updated lists:', lists); // Check if lists update after adding items
+    }, [lists]);
 
     const handleListNameChange = (updatedName) => {
         setLists(prevLists => {
@@ -114,35 +118,35 @@ const ListDetails = ({ route }) => {
     };
 
     return (
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
             <ScrollView
                 ref={scrollViewRef}
-                style={{backgroundColor:'white'}}
+                style={{ backgroundColor: 'white' }}
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
             >
-                <View style={{marginTop:10, marginBottom:80}}>
+                <View style={{ marginTop: 10, marginBottom: 80 }}>
                     <SearchBar
                         value={searchQuery}
                         onChangeText={setSearchQuery}
                     />
                     
-                    <View style={{marginVertical:10}}>
+                    <View style={{ marginVertical: 10 }}>
                         {DEPARTMENT_ORDER.map(department => {
-                            const itemsInDepartment = groupedItems[department];
-                            if (itemsInDepartment.length === 0) return null; 
+                            const itemsInDepartment = groupedItems[department] || [];
+                            if (itemsInDepartment.length === 0) return null;
                             return (
                                 <Items
                                     key={department}
                                     department={department}
-                                    itemsInDepartment={itemsInDepartment}
-                                    items={items}
+                                    itemsInDepartment={itemsInDepartment} // Correct data
                                     checkItem={checkItem}
                                     deleteItem={deleteItem}
                                 />
                             );
                         })}
                     </View>
+
                 </View>
             </ScrollView>
 
