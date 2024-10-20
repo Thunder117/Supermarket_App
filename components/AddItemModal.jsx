@@ -102,23 +102,33 @@ const AddItemModal = ({ modalVisible, setModalVisible, items, listId, setLists, 
                         keyExtractor={item => item.id.toString()}
                         renderItem={({ item }) => (
                             <TouchableOpacity onPress={() => toggleItemSelection(item.id)}>
-                                <Text style={{ fontSize: 24, marginVertical: 6, color: selectedItems.includes(item.id) ? 'blue' : 'black' }}>{item.name}</Text>
+                                <Text style={{ fontSize: 24, marginVertical: 6, color: selectedItems.includes(item.id) ? '#f39c12' : 'gray' }}>{item.name}</Text>
                             </TouchableOpacity>
                         )}
                     />
-                    {/* Add Selected Items Button */}
-                    <Button 
-                        title="Add Selected Items" 
-                        onPress={addItemToList} 
-                        disabled={selectedItems.length === 0} 
-                        style={{ borderRadius: 45 }}
-                    />
+                    
+                    <TouchableOpacity
+                        onPress={addItemToList}
+                        style={{ 
+                            marginTop: 10,
+                            alignItems:'center',
+                            paddingHorizontal: 15, 
+                            paddingVertical:10,
+                            justifyContent:'center', 
+                            borderRadius: 20,
+                            backgroundColor: selectedItems.length === 0 ? '#d5d8dc' : '#3498db'
+                        }}
+                    >
+                        <Text style={{ color: 'white', fontSize: 16 }}>{selectedItems.length === 0 ? 'Select your items' : selectedItems.length + ' items selected'}</Text>
+                    </TouchableOpacity>
+
                     <TouchableOpacity 
                         onPress={() => { setModalVisible(false); setSelectedDepartment("All"); setSelectedItems([]); }} 
                         style={{ marginTop: 20 }}
                     >
-                        <Text style={{ color: 'blue', fontSize: 16 }}>Cancel</Text>
+                        <Text style={{ color: 'gray', fontSize: 16 }}>Cancel</Text>
                     </TouchableOpacity>
+                    
                 </View>
             </View>
         </Modal>

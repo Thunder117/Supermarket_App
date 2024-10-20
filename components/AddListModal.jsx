@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Modal, TextInput, Button } from 'react-native';
+import { View, Text, Modal, TextInput, TouchableOpacity, Button } from 'react-native';
 import styles from './styles';
 
 const AddListModal = ({ modalVisible, setModalVisible, onCreateList }) => {
@@ -29,8 +29,18 @@ const AddListModal = ({ modalVisible, setModalVisible, onCreateList }) => {
                         onChangeText={setListName}
                     />
                     <View style={styles.modalButtonContainer}>
-                        <Button title="Cancel" onPress={() => setModalVisible(false)} />
-                        <Button title="Create" onPress={handleCreateList} />
+                        <TouchableOpacity 
+                            style={styles.modalButton} 
+                            onPress={() => setModalVisible(false)} 
+                        >
+                            <Text style={{ color: 'white', fontSize: 18 }}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            style={styles.modalButton}                             
+                            onPress={() => setModalVisible(false)} 
+                        >
+                            <Text onPress={handleCreateList} style={{ color: 'white', fontSize: 18 }}>Create</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

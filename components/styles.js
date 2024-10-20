@@ -106,6 +106,13 @@ const styles = StyleSheet.create({
     modalButtonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        height:35
+    },
+    modalButton: {
+        backgroundColor:'#3498db', 
+        paddingHorizontal: 15, 
+        justifyContent:'center', 
+        borderRadius: 20
     }
 });
 
